@@ -1,6 +1,12 @@
 #include "OWBus.h"
 
 String OWBus::Addr2String( OWBus::OWAddress &addr ){
+	String str;
+	for(int i=0; i<8; i++){
+		if(addr[i]<16) str += '0';	// Padding si necessaire
+		str += String(addr[i], HEX);
+	}
+	return str;
 }
 
 void OWBus::search_reset(){
