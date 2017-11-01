@@ -26,8 +26,15 @@ public:
 	void begin( void ){};
 
 		/* Addresses */
-	typedef uint8_t OWAddress[8];
-	String Addr2String( OWAddress &);
+	class OWAddress {
+		uint8_t addr[8];
+	public:
+		uint8_t *operator *(){
+			return addr;
+		}
+
+		String toString();
+	};
 
 		/* Search functions */
 	void search_reset();

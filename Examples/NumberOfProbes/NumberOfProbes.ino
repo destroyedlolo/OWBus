@@ -23,7 +23,7 @@ void loop() {
 	OWBus::OWAddress addr;
 	bus.search_reset();
 	while( bus.search_next( addr ) )
-		Serial.println( bus.Addr2String( addr ).c_str() );
+		Serial.println( addr.toString().c_str() );
 
 	delay(30e3);	// Sleep for 30 seconds
 }
