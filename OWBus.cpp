@@ -47,5 +47,16 @@ uint8_t &OWDevice::ScrachPad::operator [](uint8_t i){
 		return fake;
 }
 
+bool OWDevice::ScrachPad::read(){
+	OneWire *ow = device->getBus().getOWTechLayer();
+	
+	if(!ow->reset())
+		return false;
+	
+	ow->select(*device->getAddress());
+
+	return true;
+}
+
 bool OWDevice::ifConnected(){
 }

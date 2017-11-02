@@ -43,6 +43,9 @@ public:
 		String toString();
 	};
 
+		/* Accessors */
+	OneWire *getOWTechLayer(){ return ow; }
+
 		/* Search functions */
 	void search_reset();
 	bool search_next(Address &);

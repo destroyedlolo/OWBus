@@ -11,14 +11,18 @@ class OWDevice {
 public:
 	class ScrachPad {
 		uint8_t fake;
+		OWDevice *device;
 
 	protected:
 		uint8_t memory[9];
 
 	public:
-		uint8_t getSize(){ return sizeof(memory); };
+		ScrachPad(OWDevice *p) : device(p) {};
+		bool read();
 
+		uint8_t getSize(){ return sizeof(memory); };
 		uint8_t &operator [](uint8_t i);
+
 	};
 
 private:
@@ -27,8 +31,9 @@ private:
 	ScrachPad spad;
 
 public:
-	OWDevice( OWBus &abus, OWBus::Address &aa ) : bus(abus), addr(aa){};
+	OWDevice( OWBus &abus, OWBus::Address &aa ) : bus(abus), addr(aa), spad(this){};
 
+	OWBus &getBus(){ return bus; }
 	OWBus::Address &getAddress(){ return addr; }
 	bool ifConnected();
 	ScrachPad &SratchPad(){ return spad; }
