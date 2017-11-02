@@ -26,15 +26,15 @@ public:
 	void begin( void ){};
 
 		/* Addresses */
-	class OWAddress {
+	class Address {
 		uint8_t addr[8];
 	public:
-		OWAddress(){};
-		OWAddress( uint8_t a0, uint8_t a1, uint8_t a2, uint8_t a3, uint8_t a4, uint8_t a5, uint8_t a6, uint8_t a7 ){
+		Address(){};
+		Address( uint8_t a0, uint8_t a1, uint8_t a2, uint8_t a3, uint8_t a4, uint8_t a5, uint8_t a6, uint8_t a7 ){
 			addr[0] = a0; addr[1] = a1; addr[2] = a2; addr[3] = a3;
 			addr[4] = a4; addr[5] = a5; addr[6] = a6; addr[7] = a7;
 		}
-		OWAddress( uint8_t a[8] ){ memcpy(addr, a, sizeof(addr)); };
+		Address( uint8_t a[8] ){ memcpy(addr, a, sizeof(addr)); };
 		
 		uint8_t *operator *(){
 			return addr;
@@ -45,7 +45,7 @@ public:
 
 		/* Search functions */
 	void search_reset();
-	bool search_next(OWAddress &);
+	bool search_next(Address &);
 	uint8_t getDeviceCount(void);
 };
 

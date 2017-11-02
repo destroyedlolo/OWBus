@@ -23,15 +23,15 @@ public:
 
 private:
 	OWBus &bus;
-	OWBus::OWAddress &addr;
+	OWBus::Address &addr;
 	ScrachPad spad;
 
 public:
-	OWDevice( OWBus &abus, OWBus::OWAddress &aa ) : bus(abus), addr(aa){};
+	OWDevice( OWBus &abus, OWBus::Address &aa ) : bus(abus), addr(aa){};
 
-	OWBus::OWAddress &getAddress(){ return addr; }
+	OWBus::Address &getAddress(){ return addr; }
 	bool ifConnected();
-	ScrachPad &getSratchPad(){ return spad; }
+	ScrachPad &SratchPad(){ return spad; }
 };
 
 #endif
