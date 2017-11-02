@@ -30,3 +30,22 @@ uint8_t OWBus::getDeviceCount(void){
 		i++;
 	} while(1);
 }
+
+	/*********
+	 * Methodes used in other sub classes
+	 * Arduino IDE is not smart enough to handle sources in
+	 * sub directories
+	 ********/
+
+	/* Devices */
+#include <OWBus/Device.h>
+
+uint8_t &OWDevice::ScrachPad::operator [](uint8_t i){
+	if(i < this->getSize())
+		return memory[i];
+	else
+		return fake;
+}
+
+bool OWDevice::ifConnected(){
+}
