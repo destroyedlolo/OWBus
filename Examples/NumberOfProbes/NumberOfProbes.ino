@@ -5,7 +5,7 @@
  */
 
 #include <OWBus.h>
-#include <OWBus/Device.h>
+#include <OWBus/OWDevice.h>
 
 #define ONE_WIRE_BUS D1					// Where O1 bus is connected to
 OneWire oneWire(ONE_WIRE_BUS);	// Initialize oneWire library

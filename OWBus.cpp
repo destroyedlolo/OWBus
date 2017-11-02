@@ -38,7 +38,7 @@ uint8_t OWBus::getDeviceCount(void){
 	 ********/
 
 	/* Devices */
-#include <OWBus/Device.h>
+#include <OWBus/OWDevice.h>
 
 uint8_t &OWDevice::ScrachPad::operator [](uint8_t i){
 	if(i < this->getSize())
