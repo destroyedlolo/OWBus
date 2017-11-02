@@ -1,0 +1,2 @@
+Command codes are not consistances against familly.
+-> Create a virtual enum in OWDevice that will be implemented for every familly
