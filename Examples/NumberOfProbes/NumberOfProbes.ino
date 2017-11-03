@@ -27,7 +27,7 @@ void loop() {
 		Serial.print( addr.toString().c_str() );
 		Serial.print(" : ");
 		if(!addr.isValide( &oneWire))
-			Serial.println("Invalide address");
+			Serial.println("Invalid address");
 		else {
 			OWDevice probe( bus, addr );
 			Serial.println( probe.getFamilly() );
