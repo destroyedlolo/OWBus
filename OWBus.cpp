@@ -76,6 +76,7 @@ bool OWScratchpad::readScratchpad(){
 	for(size_t i=0; i<this->getSize(); i++)
 		memory[i] = ow->read();
 
+	this->virgin = false;
 	return(!!ow->reset());
 }
 
@@ -83,7 +84,7 @@ bool OWScratchpad::readScratchpad(){
 #include <OWBus/DS18B20.h>
 
 float DS18B20::readLastTemperature(){
-	if(!this->readScratchpad())
+	if(virgin && !this->readScratchpad())	// Read the scratchpad if not already done
 		return this->BAD_TEMPERATURE;
 
 	int16_t val = (this->operator[](1) << 8) | this->operator[](0);

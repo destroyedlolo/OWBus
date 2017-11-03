@@ -10,13 +10,14 @@
 class OWScratchpad {
 	uint8_t fake;
 	OWDevice *device;
-
-protected:
 	size_t size;
 	uint8_t *memory;
 
+protected:
+	bool virgin;
+
 public:
-	OWScratchpad(OWDevice *p, size_t asz) : device(p), size(asz){
+	OWScratchpad(OWDevice *p, size_t asz) : device(p), size(asz), virgin(true){
 		memory = new uint8_t[asz];
 	};
 	bool readScratchpad();
