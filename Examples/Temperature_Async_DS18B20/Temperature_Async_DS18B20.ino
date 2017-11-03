@@ -1,4 +1,4 @@
-/* This example show how to mesure asynchronously temperature 
+/* This example show how to measure asynchronously temperature 
  * using a DS18B20 probe 
  * 
  *  This little piece of code is put in Public Domain.
