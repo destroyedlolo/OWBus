@@ -116,5 +116,18 @@ unsigned long DS18B20::getConversionDelay(){
 	}	
 }
 
+uint8_t DS18B20::getResolution(){
+	if(virgin && !this->readScratchpad())
+		return 0;
+
+	switch(this->operator[](4) & 0x60){
+	case 0x00: return 9;
+	case 0x20: return 10;
+	case 0x40: return 11;
+	default:
+		return 12;
+	}
+}
+
 float DS18B20::getTemperature(){
 };

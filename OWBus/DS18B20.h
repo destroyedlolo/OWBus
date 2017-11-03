@@ -19,6 +19,7 @@ public:
 
 	float readLastTemperature();		// Read current scratchpad value
 	unsigned long getConversionDelay();	// Delay needed for the conversion
+	uint8_t getResolution();			// return 0 in case of error
 	float getTemperature();				// Launch a conversion and read the temperature
 };
 
