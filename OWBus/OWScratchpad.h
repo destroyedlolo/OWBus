@@ -7,7 +7,7 @@
 
 #include <OWBus/OWDevice.h>
 
-class OWScrachpad {
+class OWScratchpad {
 	uint8_t fake;
 	OWDevice *device;
 
@@ -16,10 +16,10 @@ protected:
 	uint8_t *memory;
 
 public:
-	OWScrachpad(OWDevice *p, size_t asz) : device(p), size(asz){
+	OWScratchpad(OWDevice *p, size_t asz) : device(p), size(asz){
 		memory = new uint8_t[asz];
 	};
-	bool readScrachpad();
+	bool readScratchpad();
 
 	uint8_t getSize(){ return size; };
 	uint8_t &operator [](uint8_t i);

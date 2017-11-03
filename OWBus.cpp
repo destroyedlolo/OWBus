@@ -57,14 +57,14 @@ bool OWDevice::ifConnected(){
 	/* Scratchpad */
 #include <OWBus/OWScratchpad.h>
 
-uint8_t &OWScrachpad::operator [](uint8_t i){
+uint8_t &OWScratchpad::operator [](uint8_t i){
 	if(i < this->getSize())
 		return memory[i];
 	else
 		return fake;
 }
 
-bool OWScrachpad::readScrachpad(){
+bool OWScratchpad::readScratchpad(){
 	OneWire *ow = device->getBus().getOWTechLayer();
 	
 	if(!ow->reset())
