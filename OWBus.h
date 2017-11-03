@@ -23,7 +23,6 @@ class OWBus {
 public:
 	OWBus(OneWire *aow): ow(aow){
 	}
-	void begin( void ){};
 
 		/* Addresses */
 	class Address {
