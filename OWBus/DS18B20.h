@@ -17,7 +17,9 @@ public:
 
 	const float BAD_TEMPERATURE = 9999.0;
 
-	float readLastTemperature();	// Read current scratchpad value
+	float readLastTemperature();		// Read current scratchpad value
+	unsigned long getConversionDelay();	// Delay needed for the conversion
+	float getTemperature();				// Launch a conversion and read the temperature
 };
 
 #endif

@@ -84,7 +84,7 @@ bool OWScratchpad::readScratchpad(){
 #include <OWBus/DS18B20.h>
 
 float DS18B20::readLastTemperature(){
-	if(virgin && !this->readScratchpad())	// Read the scratchpad if not already done
+	if(!this->readScratchpad())
 		return this->BAD_TEMPERATURE;
 
 	int16_t val = (this->operator[](1) << 8) | this->operator[](0);
@@ -102,3 +102,18 @@ float DS18B20::readLastTemperature(){
 
 	return val/16.0;
 }
+
+unsigned long DS18B20::getConversionDelay(){
+	if(virgin && !this->readScratchpad())
+		return 1000;	// By default, we will wait for a second
+
+	switch(this->operator[](4) & 0x60){
+	case 0x00: return 94;
+	case 0x20: return 188;
+	case 0x40: return 375;
+	default:
+		return 750;
+	}	
+}
+
+
