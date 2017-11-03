@@ -53,7 +53,7 @@ uint8_t &OWScrachpad::operator [](uint8_t i){
 		return fake;
 }
 
-bool OWScrachpad::read(){
+bool OWScrachpad::readScrachpad(){
 	OneWire *ow = device->getBus().getOWTechLayer();
 	
 	if(!ow->reset())
