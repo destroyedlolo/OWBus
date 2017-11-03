@@ -20,7 +20,14 @@ public:
 	float readLastTemperature();		// Read current scratchpad value
 	unsigned long getConversionDelay();	// Delay needed for the conversion
 	uint8_t getResolution();			// return 0 in case of error
-	float getTemperature();				// Launch a conversion and read the temperature
+
+		/* if parasite == true, force the bus to be high during the conversion
+		 * it's mandatory for parasite-powered probes
+		 * it's advisable for externally powered probes to ensure strong
+		 * power supply.
+		 */
+	bool launchTemperatureAquisition( bool parasite=true );	// Launch temperature acquisition
+	float getTemperature( bool parasite=true );				// Launch a conversion and read the temperature
 };
 
 #endif

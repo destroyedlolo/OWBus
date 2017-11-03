@@ -136,5 +136,16 @@ uint8_t DS18B20::getResolution(){
 	}
 }
 
-float DS18B20::getTemperature(){
+bool DS18B20::launchTemperatureAquisition(bool parasite){
+	OneWire *ow = getBus().getOWTechLayer();
+	
+	if(!ow->reset())
+		return false;
+	
+	ow->select(*this->getAddress());
+	ow->write( this->getOWCommand( OWDevice::OWCommands::CONVERT_T ), parasite );
+	return true;
+}
+
+float DS18B20::getTemperature(bool parasite){
 };
