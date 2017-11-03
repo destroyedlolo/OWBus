@@ -25,10 +25,13 @@ void loop() {
 	bus.search_reset();
 	while( bus.search_next( addr ) ){
 		Serial.print( addr.toString().c_str() );
-		OWDevice probe( bus, addr );
-
 		Serial.print(" : ");
-		Serial.println( probe.getFamilly() );
+		if(!addr.isValide( &oneWire))
+			Serial.println("Invalide address");
+		else {
+			OWDevice probe( bus, addr );
+			Serial.println( probe.getFamilly() );
+		}
 	}
 
 	delay(30e3);	// Sleep for 30 seconds
