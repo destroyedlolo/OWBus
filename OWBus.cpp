@@ -108,12 +108,13 @@ unsigned long DS18B20::getConversionDelay(){
 		return 1000;	// By default, we will wait for a second
 
 	switch(this->operator[](4) & 0x60){
-	case 0x00: return 94;
-	case 0x20: return 188;
-	case 0x40: return 375;
-	default:
+	case 0x00: return 94;	// 9 bits
+	case 0x20: return 188;	// 10 bits
+	case 0x40: return 375;	// 11 bits
+	default:				// 12 bits
 		return 750;
 	}	
 }
 
-
+float DS18B20::getTemperature(){
+};
