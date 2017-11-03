@@ -62,6 +62,9 @@ bool OWScrachPad::read(){
 	ow->select(*device->getAddress());
 	ow->write( this->device->getOWCommand( OWDevice::OWCommands::READ_SCRATCHPAD ) );
 
-	return true;
+	for(size_t i=0; i<this->getSize(); i++)
+		memory[i] = ow->read();
+
+	return(!!ow->reset());
 }
 

@@ -21,7 +21,7 @@ public:
 	};
 	bool read();
 
-	uint8_t getSize(){ return sizeof(memory); };
+	uint8_t getSize(){ return size; };
 	uint8_t &operator [](uint8_t i);
 
 };
