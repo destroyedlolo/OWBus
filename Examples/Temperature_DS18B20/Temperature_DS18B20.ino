@@ -20,6 +20,7 @@ void loop() {
 	DS18B20 probe(bus, 0x2882b25e09000015 );
 
 	Serial.println( probe.readLastTemperature() );
+	Serial.println( probe.isParasitePowered() ? "Parasite":"External" );
 
 	delay(10e3);
 }
