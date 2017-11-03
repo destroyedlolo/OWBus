@@ -35,7 +35,17 @@ public:
 			addr[4] = a4; addr[5] = a5; addr[6] = a6; addr[7] = a7;
 		}
 		Address( uint8_t a[8] ){ memcpy(addr, a, sizeof(addr)); };
-		
+		Address( uint64_t a){
+			addr[0] = a >> 56;
+			addr[1] = a >> 48;
+			addr[2] = a >> 40;
+			addr[3] = a >> 32;
+			addr[4] = a >> 24;
+			addr[5] = a >> 16;
+			addr[6] = a >> 8;
+			addr[7] = a & 0xff;
+		}
+
 		uint8_t *operator *(){
 			return addr;
 		}
