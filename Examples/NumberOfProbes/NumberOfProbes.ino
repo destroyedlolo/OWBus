@@ -26,13 +26,6 @@ void loop() {
 	while( bus.search_next( addr ) ){
 		Serial.println( addr.toString().c_str() );
 		OWDevice probe( bus, addr );
-
-			// Test overflow
-		probe.SratchPad()[1] = 1;
-		probe.SratchPad()[9] = 9;
-		probe.SratchPad()[10] = 10;
-		Serial.print("1 and 10 expected : ");
-		Serial.println( String(probe.SratchPad()[1]) + " " + String(probe.SratchPad()[10]));
 	}
 
 	delay(30e3);	// Sleep for 30 seconds

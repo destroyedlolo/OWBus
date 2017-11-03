@@ -40,23 +40,28 @@ uint8_t OWBus::getDeviceCount(void){
 	/* Devices */
 #include <OWBus/OWDevice.h>
 
-uint8_t &OWDevice::ScrachPad::operator [](uint8_t i){
+bool OWDevice::ifConnected(){
+}
+
+	/* Scratchpad */
+#include <OWBus/OWScratchPad.h>
+
+uint8_t &OWScrachPad::operator [](uint8_t i){
 	if(i < this->getSize())
 		return memory[i];
 	else
 		return fake;
 }
 
-bool OWDevice::ScrachPad::read(){
+bool OWScrachPad::read(){
 	OneWire *ow = device->getBus().getOWTechLayer();
 	
 	if(!ow->reset())
 		return false;
 	
 	ow->select(*device->getAddress());
+	ow->write( this->device->getOWCommand( OWDevice::OWCommands::READ_SCRATCHPAD ) );
 
 	return true;
 }
 
-bool OWDevice::ifConnected(){
-}
