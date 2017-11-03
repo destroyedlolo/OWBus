@@ -79,3 +79,25 @@ bool OWScratchpad::readScratchpad(){
 	return(!!ow->reset());
 }
 
+	/* DS18B20 */
+#include <OWBus/DS18B20.h>
+
+float DS18B20::readLastTemperature(){
+	if(!this->readScratchpad())
+		return this->BAD_TEMPERATURE;
+
+	int16_t val = (this->operator[](1) << 8) | this->operator[](0);
+
+	switch(this->operator[](4) & 0x60){	// Clean unused bits
+	case 0x00: val &= ~7;	// 9 bits
+		break;
+	case 0x20: val &= ~3;	// 10 bits
+		break;
+	case 0x40: val &= ~1;	// 11 bits
+		break;
+	default :				// 12 bits
+		break;
+	}
+
+	return val/16.0;
+}
