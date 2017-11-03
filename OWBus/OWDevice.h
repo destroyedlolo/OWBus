@@ -33,6 +33,7 @@ public:
 	OWBus &getBus(){ return bus; }
 	OWBus::Address &getAddress(){ return addr; }
 	bool ifConnected();
+	const char *getFamilly(){ return addr.getFamilly(); }
 };
 
 #endif

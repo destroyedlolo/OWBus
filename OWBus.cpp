@@ -31,6 +31,17 @@ uint8_t OWBus::getDeviceCount(void){
 	} while(1);
 }
 
+const char *OWBus::Address::getFamilly(){
+	switch(addr[0]){
+	case 0x28:
+		return "18B20";
+	case 0x42:
+		return "28EA00";
+	default :
+		return "Unknown";
+	}
+}
+
 	/*********
 	 * Methodes used in other sub classes
 	 * Arduino IDE is not smart enough to handle sources in

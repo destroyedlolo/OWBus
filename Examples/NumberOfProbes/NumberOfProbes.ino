@@ -17,15 +17,18 @@ void setup() {
 }
 
 void loop() {
-	Serial.print("Number of probes on the bus :");
+	Serial.print("\nNumber of probes on the bus :");
 	Serial.println(bus.getDeviceCount());
 
-	Serial.println("\nIndividual address :");
+	Serial.println("Individual address :");
 	OWBus::Address addr;
 	bus.search_reset();
 	while( bus.search_next( addr ) ){
-		Serial.println( addr.toString().c_str() );
+		Serial.print( addr.toString().c_str() );
 		OWDevice probe( bus, addr );
+
+		Serial.print(" : ");
+		Serial.println( probe.getFamilly() );
 	}
 
 	delay(30e3);	// Sleep for 30 seconds

@@ -41,6 +41,8 @@ public:
 		}
 
 		String toString();
+
+		const char *getFamilly();
 	};
 
 		/* Accessors */
