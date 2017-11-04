@@ -2,6 +2,9 @@
 
 OWBus is a library that handles several type of Maxim's 1-Wire probes for Arduino and ESP8266
 
+OWBus requires the OneWire library which can be found at
+http://www.pjrc.com/teensy/td_libs_OneWire.html
+
 Have a look on provided examples as well as .h files for additionnal informations.
 
 In a user point of vue :
