@@ -19,22 +19,36 @@ void setup() {
 }
 
 void loop() {
-	Serial.print("\nNumber of probes on the bus :");
-	Serial.println(bus.getDeviceCount());
+		/* Probes' list */
+	DS18B20  probe1(bus, 0x2882b25e09000015 );
+	DS28EA00 probe2(bus, 0x42886847000000bf );
+	
+		/* determine the worst conversion duration */
+	unsigned long duration = max(probe1.getConversionDelay(), probe2.getConversionDelay());
+	Serial.print("Will wait for :");
+	Serial.println(duration);
 
-	Serial.println("Individual address :");
-	OWBus::Address addr;
-	bus.search_reset();
-	while( bus.search_next( addr ) ){
-		Serial.print( addr.toString().c_str() );
-		Serial.print(" : ");
-		if(!addr.isValide( &oneWire))
-			Serial.println("Invalid address");
-		else {
-			OWDevice probe( bus, addr );
-			Serial.println( probe.getFamilly() );
-		}
-	}
+		/* Determine if we have parasite powered probes 
+		 *
+		 * Notez-Bien : alternatively, we can broadcast a general 
+		 * isParasitePowered() which would be a better solution if we have a
+		 * large number of probes, but all probes will respond, including non
+		 * temperature ones.
+		 * Notez-Bien 2 : in a real project, it would be safer to use parasitic
+		 * conversion in any case. It will ensure a strong power supply.
+		 */
+	bool parasite = max(probe1.isParasitePowered(), probe2.isParasitePowered());
+	Serial.println( parasite ? "Parasite mode" : "External mode" );
+
+		/* Broadcast conversions request */
+	bus.launchTemperatureAquisition(parasite);
+	delay(duration);	// Waiting for conversions to be done
+
+	Serial.print( (probe1.getAddress().toString() + " (" + probe1.getFamilly() + ") : ").c_str() );
+	Serial.println( probe1.readLastTemperature() );
+	
+	Serial.print( (probe2.getAddress().toString() + " (" + probe2.getFamilly() + ") : ").c_str() );
+	Serial.println( probe2.readLastTemperature() );
 
 	delay(30e3);	// Sleep for 30 seconds
 }
