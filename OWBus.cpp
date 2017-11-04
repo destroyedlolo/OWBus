@@ -148,4 +148,8 @@ bool DS18B20::launchTemperatureAquisition(bool parasite){
 }
 
 float DS18B20::getTemperature(bool parasite){
+	if(!this->launchTemperatureAquisition( parasite ))
+		return this->BAD_TEMPERATURE;
+	delay( this->getConversionDelay() );
+	return this->readLastTemperature();
 };

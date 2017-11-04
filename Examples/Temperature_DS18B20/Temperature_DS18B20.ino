@@ -1,5 +1,5 @@
-/* This example show how to mesure temperature 
- * on a DS18B20 probe 
+/* This example show how to measure temperature in the simplest way
+ * using a DS18B20 probe 
  * 
  *  This little piece of code is put in Public Domain.
  */
@@ -19,8 +19,14 @@ void setup() {
 void loop() {
 	DS18B20 probe(bus, 0x2882b25e09000015 );
 
-	Serial.println( probe.readLastTemperature() );
-	Serial.println( probe.isParasitePowered() ? "Parasite":"External" );
+		/* It's optional, you can safely use getTemperature() without
+		 * argument. In this cas, parasite-power mode is used which is
+		 * in any case the safer way even on externally powered probe.
+		 */
+	bool parasite = probe.isParasitePowered();
+	Serial.println( parasite ? "Parasite":"External" );
+
+	Serial.println( probe.getTemperature( parasite ) );
 
 	delay(10e3);
 }
