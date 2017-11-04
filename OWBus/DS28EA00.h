@@ -16,6 +16,13 @@ public:
 	DS28EA00( OWBus &abus, uint64_t aa ) : DS18B20( abus, aa ) {}
 
 	static const uint8_t FAMILLY_CODE = 0x42;
+
+		/* Both PIOs are read or written at the same time */
+	enum PIObitsvalue { PIOAbit=1, PIOBbit=2 };
+	enum PIOmask { PIONONEmask=0xff, PIOAmask=0xfe, PIOBmask=0xfd };
+
+	uint8_t readPIOs();	// Read PIOs
+	bool writePIOs( uint8_t );	// Write PIOs
 };
 
 #endif

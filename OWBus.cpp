@@ -144,6 +144,31 @@ float DS18B20::getTemperature(bool parasite){
 	return this->readLastTemperature();
 };
 
+	/* DS28EA00 specifics
+	 *	ports are active when LOW.
+	 */
+uint8_t DS28EA00::readPIOs(){
+}
+
+bool DS28EA00::writePIOs( uint8_t val ){
+	OneWire *ow = getBus().getOWTechLayer();
+
+	if(!ow->reset())
+		return false;
+	
+	bool res = true;
+	ow->select(*this->getAddress());
+	ow->write( this->getOWCommand( OWDevice::OWCommands::PIO_WRITE ) );
+	ow->write(val);		// Write the value
+	ow->write(~val);	// and it's complement
+
+	if( ow->read() != 0xaa )	// chip's feedback
+		res = false;	// Failure
+	
+	ow->reset();
+	return res;
+}
+
 	/* Generic probe related functions */
 bool OWBus::launchTemperatureAquisition(bool parasite){
 	OneWire *ow = this->getOWTechLayer();
