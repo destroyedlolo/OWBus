@@ -53,6 +53,7 @@ public:
 
 		bool isValide(OneWire *ow){ return(ow->crc8(addr, 7) == addr[7]); }	// Is a valide address ?
 		const char *getFamilly();
+		uint8_t getFamillyCode(){ return addr[0]; };
 	};
 
 		/* Accessors */
