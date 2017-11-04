@@ -13,6 +13,7 @@
 class DS28EA00 : public DS18B20 {
 public:
 	DS28EA00( OWBus &abus, OWBus::Address &aa ) : DS18B20( abus, aa ) {}
+	DS28EA00( OWBus &abus, uint64_t aa ) : DS18B20( abus, aa ) {}
 
 	static const uint8_t FAMILLY_CODE = 0x42;
 };
