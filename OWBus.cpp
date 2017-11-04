@@ -81,7 +81,7 @@ bool OWScratchpad::readScratchpad(){
 #include <OWBus/DS28EA00.h>
 
 float DS18B20::readLastTemperature(){
-	if(!this->readScratchpad())
+	if(!this->readScratchpad() || !this->isValideScratchpad())
 		return this->BAD_TEMPERATURE;
 
 	int16_t val = (this->operator[](1) << 8) | this->operator[](0);
@@ -137,6 +137,14 @@ bool DS18B20::launchTemperatureAquisition(bool parasite){
 	return true;
 }
 
+float DS18B20::getTemperature(bool parasite){
+	if(!this->launchTemperatureAquisition( parasite ))
+		return this->BAD_TEMPERATURE;
+	delay( this->getConversionDelay() );
+	return this->readLastTemperature();
+};
+
+	/* Generic probe related functions */
 bool OWBus::launchTemperatureAquisition(bool parasite){
 	OneWire *ow = this->getOWTechLayer();
 	
@@ -148,13 +156,6 @@ bool OWBus::launchTemperatureAquisition(bool parasite){
 	ow->write( OWDevice::OWCommands::CONVERT_T, parasite );
 	return true;
 }
-
-float DS18B20::getTemperature(bool parasite){
-	if(!this->launchTemperatureAquisition( parasite ))
-		return this->BAD_TEMPERATURE;
-	delay( this->getConversionDelay() );
-	return this->readLastTemperature();
-};
 
 const char *OWBus::Address::getFamilly(){
 	switch(addr[0]){

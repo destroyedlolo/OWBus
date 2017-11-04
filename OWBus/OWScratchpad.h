@@ -15,12 +15,14 @@ class OWScratchpad {
 
 protected:
 	bool virgin;
+	uint8_t *getScratchpadMemory(){ return memory; }
 
 public:
 	OWScratchpad(OWDevice *p, size_t asz) : device(p), size(asz), virgin(true){
 		memory = new uint8_t[asz];
 	};
 	bool readScratchpad();
+	virtual bool isValideScratchpad(){ return true; }	// Derived classes must implement a real check
 
 	uint8_t getSize(){ return size; };
 	uint8_t &operator [](uint8_t i);

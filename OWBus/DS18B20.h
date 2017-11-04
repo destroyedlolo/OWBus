@@ -22,6 +22,10 @@ public:
 	unsigned long getConversionDelay();	// Delay needed for the conversion
 	uint8_t getResolution();			// return 0 in case of error
 
+	bool isValideScratchpad(){	// Verify scratchpad CRC
+		return( OneWire::crc8(this->getScratchpadMemory(), 8) == this->operator [](8) );
+	}
+
 		/* if parasite == true, force the bus to be high during the conversion
 		 * it's mandatory for parasite-powered probes
 		 * it's advisable for externally powered probes to ensure strong
