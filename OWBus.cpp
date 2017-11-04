@@ -147,9 +147,6 @@ float DS18B20::getTemperature(bool parasite){
 	/* DS28EA00 specifics
 	 *	ports are active when LOW.
 	 */
-uint8_t DS28EA00::readPIOs(){
-}
-
 bool DS28EA00::writePIOs( uint8_t val ){
 	OneWire *ow = getBus().getOWTechLayer();
 
@@ -167,6 +164,40 @@ bool DS28EA00::writePIOs( uint8_t val ){
 	
 	ow->reset();
 	return res;
+}
+
+uint8_t DS28EA00::readPIOs(){
+	OneWire *ow = getBus().getOWTechLayer();
+
+	if(!ow->reset())
+		return false;
+	
+	ow->select(*this->getAddress());
+	ow->write( this->getOWCommand( OWDevice::OWCommands::PIO_READ ) );
+	
+	this->lastPIOs = ow->read();
+	ow->reset();
+
+	return( this->lastPIOs );
+}
+
+bool DS28EA00::PIOA( uint8_t val ){
+	if(val == (uint8_t)-1)
+		val = this->lastPIOs;
+	return(val & 1);
+}
+
+bool DS28EA00::PIOB( uint8_t val ){
+	if(val == (uint8_t)-1)
+		val = this->lastPIOs;
+	return(val & 4);
+}
+
+bool DS28EA00::arePIOsValide( uint8_t val ){
+	if(val == (uint8_t)-1)
+		val = this->lastPIOs;
+
+	return((val & 0x0f) == (~((val & 0xf0) >> 4) & 0x0f ));
 }
 
 	/* Generic probe related functions */
