@@ -16,6 +16,7 @@ public:
 	DS18B20( OWBus &abus, uint64_t aa ) : OWDevice( abus, aa ), OWScratchpad( this, 9 ) {}
 
 	const float BAD_TEMPERATURE = 9999.0;
+	static const uint8_t FAMILLY_CODE = 0x28;
 
 	float readLastTemperature();		// Read current scratchpad value
 	unsigned long getConversionDelay();	// Delay needed for the conversion

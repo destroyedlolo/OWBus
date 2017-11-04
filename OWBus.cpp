@@ -31,17 +31,6 @@ uint8_t OWBus::getDeviceCount(void){
 	} while(1);
 }
 
-const char *OWBus::Address::getFamilly(){
-	switch(addr[0]){
-	case 0x28:
-		return "18B20";
-	case 0x42:
-		return "28EA00";
-	default :
-		return "Unknown";
-	}
-}
-
 	/*********
 	 * Methodes used in other sub classes
 	 * Arduino IDE is not smart enough to handle sources in
@@ -87,8 +76,9 @@ bool OWScratchpad::readScratchpad(){
 	return(!!ow->reset());
 }
 
-	/* DS18B20 */
+	/* DS18B20 and DS28EA00 */
 #include <OWBus/DS18B20.h>
+#include <OWBus/DS28EA00.h>
 
 float DS18B20::readLastTemperature(){
 	if(!this->readScratchpad())
@@ -147,9 +137,33 @@ bool DS18B20::launchTemperatureAquisition(bool parasite){
 	return true;
 }
 
+bool OWBus::launchTemperatureAquisition(bool parasite){
+	OneWire *ow = this->getOWTechLayer();
+	
+	if(!ow->reset())
+		return false;
+	
+	ow->skip();
+		// It seems all compatible probes are using the same code
+	ow->write( OWDevice::OWCommands::CONVERT_T, parasite );
+	return true;
+}
+
 float DS18B20::getTemperature(bool parasite){
 	if(!this->launchTemperatureAquisition( parasite ))
 		return this->BAD_TEMPERATURE;
 	delay( this->getConversionDelay() );
 	return this->readLastTemperature();
 };
+
+const char *OWBus::Address::getFamilly(){
+	switch(addr[0]){
+	case DS18B20::FAMILLY_CODE :
+		return "18B20";
+	case DS28EA00::FAMILLY_CODE:
+		return "28EA00";
+	default :
+		return "Unknown";
+	}
+}
+

@@ -27,7 +27,8 @@ public:
 	enum OWCommands {
 		CONVERT_T=0x44,
 		WRITE_SCRATCHPAD=0x4e, READ_SCRATCHPAD=0xBE, COPY_SCRATCHPAD=0x48,
-		RECALL_E2=0xb8, READ_POWER_SUPPLY=0xB4
+		RECALL_E2=0xb8, READ_POWER_SUPPLY=0xB4,
+		PIO_READ=0xf5, PIO_WRITE=0xa5
 	};
 	virtual uint8_t getOWCommand( OWCommands c ){ return c; }
 

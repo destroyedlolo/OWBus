@@ -62,6 +62,11 @@ public:
 	void search_reset();
 	bool search_next(Address &);
 	uint8_t getDeviceCount(void);
+
+		/* Launch temperature conversion on all probe on the bus
+		 * (but ds2422)
+		 */
+	bool launchTemperatureAquisition( bool parasite=true );
 };
 
 #endif
