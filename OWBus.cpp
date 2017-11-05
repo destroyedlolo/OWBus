@@ -76,12 +76,23 @@ bool OWScratchpad::readScratchpad(){
 	return(!!ow->reset());
 }
 
+bool OWScratchpad::writeScratchpad(bool force){
+	if(!force && !this->isValidScratchpad())	// The scratchpad is not valid
+		return false;
+
+	OneWire *ow = device->getBus().getOWTechLayer();
+	if(!ow->reset())
+		return false;
+
+	
+}
+
 	/* DS18B20 and DS28EA00 */
 #include <OWBus/DS18B20.h>
 #include <OWBus/DS28EA00.h>
 
 float DS18B20::readLastTemperature(){
-	if(!this->readScratchpad() || !this->isValideScratchpad())
+	if(!this->readScratchpad() || !this->isValidScratchpad())
 		return this->BAD_TEMPERATURE;
 
 	int16_t val = (this->operator[](1) << 8) | this->operator[](0);
@@ -114,7 +125,7 @@ unsigned long DS18B20::getConversionDelay(){
 }
 
 uint8_t DS18B20::getResolution(){
-	if(virgin && !this->readScratchpad())
+	if(virgin && !this->readScratchpad())	// read scratchpad if not already done
 		return 0;
 
 	switch(this->operator[](4) & 0x60){
@@ -124,6 +135,35 @@ uint8_t DS18B20::getResolution(){
 	default:
 		return 12;
 	}
+}
+
+bool DS18B20::setResolution(uint8_t v){
+	if(v < 9) v = 9;	// argument conformance
+	if(v > 12) v = 12;
+
+	uint8_t c = this->getResolution();	// refresh the scratchpad if needed as well
+	if(!c)	// Unable to read the current configuration
+		return false;
+	if(v == c)	// Already to good value
+		return true;
+
+	c = this->operator[](4);	// Byte storing the resolution
+	c &= ~0x60;
+	switch( v ){	// Nothing to do for 9bits resolution
+	case 10:
+		c |= 0x20; break;
+	case 11:
+		c |= 0x40; break;
+	case 12:
+		c |= 0x60; break;
+	}
+	this->operator[](4) = c;
+
+	Serial.print(c,HEX);
+	Serial.print(" ");
+	Serial.println( this->operator[](4), HEX);
+
+	return true;
 }
 
 bool DS18B20::launchTemperatureAquisition(bool parasite){
@@ -193,7 +233,7 @@ bool DS28EA00::PIOB( uint8_t val ){
 	return(val & 4);
 }
 
-bool DS28EA00::arePIOsValide( uint8_t val ){
+bool DS28EA00::arePIOsValid( uint8_t val ){
 	if(val == (uint8_t)-1)
 		val = this->lastPIOs;
 

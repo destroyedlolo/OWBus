@@ -31,7 +31,7 @@ void loop() {
 	delay(1e3);
 
 	uint8_t val = probe.readPIOs();
-	if( !val || !probe.arePIOsValide())
+	if( !val || !probe.arePIOsValid())
 		Serial.println("readPIOs() failure");
 	else {
 		Serial.print( probe.PIOB() ? "PIO.B is high > " : "PIO.B is low > ");
@@ -47,7 +47,7 @@ void loop() {
 	delay(1e3);
 
 	val = probe.readPIOs();
-	if( !val || !probe.arePIOsValide())
+	if( !val || !probe.arePIOsValid())
 		Serial.println("readPIOs() failure");
 	else {
 		Serial.print( probe.PIOB() ? "PIO.B is high > " : "PIO.B is low > ");

@@ -26,7 +26,7 @@ public:
 		// If no argument is provided, takes the last readPIOs() value
 	bool PIOA( uint8_t val = (uint8_t)-1 );
 	bool PIOB( uint8_t val = (uint8_t)-1 );
-	bool arePIOsValide( uint8_t val = (uint8_t)-1 );
+	bool arePIOsValid( uint8_t val = (uint8_t)-1 );
 
 	uint8_t readPIOs();	// Read PIOs
 	bool writePIOs( uint8_t );	// Write PIOs

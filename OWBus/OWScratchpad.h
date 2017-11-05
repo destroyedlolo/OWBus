@@ -3,7 +3,7 @@
  * 03/11/2017 - L.Faillie - First version
  */
 #ifndef OWSCRATCHPAD_H
-#define OWSCRATCHPAD_H 0.0101
+#define OWSCRATCHPAD_H 0.0102
 
 #include <OWBus/OWDevice.h>
 
@@ -22,7 +22,8 @@ public:
 		memory = new uint8_t[asz];
 	};
 	bool readScratchpad();
-	virtual bool isValideScratchpad(){ return true; }	// Derived classes must implement a real check
+	bool writeScratchpad(bool force=false);	// Without force set, fail if the scratchpad is not valid
+	virtual bool isValidScratchpad(){ return true; }	// Derived classes must implement a real check
 
 	uint8_t getSize(){ return size; };
 	uint8_t &operator [](uint8_t i);

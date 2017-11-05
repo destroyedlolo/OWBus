@@ -4,7 +4,7 @@
  */
 
 #ifndef OWDS18B20_H
-#define OWDS18B20_H
+#define OWDS18B20_H	0.0300
 
 #include <OWBus.h>
 #include <OWBus/OWDevice.h>
@@ -21,8 +21,9 @@ public:
 	float readLastTemperature();		// Read current scratchpad value
 	unsigned long getConversionDelay();	// Delay needed for the conversion
 	uint8_t getResolution();			// return 0 in case of error
+	bool setResolution(uint8_t resolution=12);		// if < 9, set to 9, if > 12, set to 12
 
-	bool isValideScratchpad(){	// Verify scratchpad CRC
+	bool isValidScratchpad(){	// Verify scratchpad CRC
 		return( OneWire::crc8(this->getScratchpadMemory(), 8) == this->operator [](8) );
 	}
 

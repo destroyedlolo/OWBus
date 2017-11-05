@@ -12,7 +12,7 @@
  *
  */
 #ifndef OWBus_H
-#define OWBus_H 0.0100
+#define OWBus_H 0.0101
 
 #include <OneWire.h>
 
@@ -51,7 +51,7 @@ public:
 
 		String toString();
 
-		bool isValide(OneWire *ow){ return(ow->crc8(addr, 7) == addr[7]); }	// Is a valide address ?
+		bool isValid(OneWire *ow){ return(ow->crc8(addr, 7) == addr[7]); }	// Is a valid address ?
 		const char *getFamilly();
 		uint8_t getFamillyCode(){ return addr[0]; };
 	};

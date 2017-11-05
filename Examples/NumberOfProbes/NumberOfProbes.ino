@@ -26,7 +26,7 @@ void loop() {
 	while( bus.search_next( addr ) ){
 		Serial.print( addr.toString().c_str() );
 		Serial.print(" : ");
-		if(!addr.isValide( &oneWire))
+		if(!addr.isValid( &oneWire))
 			Serial.println("Invalid address");
 		else {
 			OWDevice probe( bus, addr );
