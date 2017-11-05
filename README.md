@@ -7,7 +7,7 @@ http://www.pjrc.com/teensy/td_libs_OneWire.html
 
 Have a look on provided examples as well as .h files for additionnal informations.
 
-In a user point of vue :
+Interfaces implementation :
 
 ## OWBus (OWBus.h)
 
@@ -42,7 +42,21 @@ Handles well known ds18b20 temperature probe.
 - synchronous and asynchronous temperature conversion
 - precision
 - conversion timings
-- ...
+
+### Features Support
+- Temperature : **Tested ok**
+- Precision : **Tested ok**
+- Alarms : *To be done*
+- EEprom : *To be done*
 
 ## DS28EA00
-Handles ds28ea00 temperature probe as well as its PIO.
+Handles ds28ea00 temperature probe as well as its PIOs.
+
+### Features Support
+- Temperature : **Tested ok**
+- Precision : **Tested ok**
+- Alarms : *To be done*
+- EEprom : *To be done*
+- Chain : *To be done*
+- PIO writing : **Tested ok**
+- PIO reading : **Tested ok**
