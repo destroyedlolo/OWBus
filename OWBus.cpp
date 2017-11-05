@@ -162,11 +162,7 @@ bool DS18B20::setResolution(uint8_t v){
 	}
 	this->operator[](4) = c;
 
-	Serial.print(c,HEX);
-	Serial.print(" ");
-	Serial.println( this->operator[](4), HEX);
-
-	return true;
+	return this->writeScratchpad();
 }
 
 bool DS18B20::launchTemperatureAquisition(bool parasite){

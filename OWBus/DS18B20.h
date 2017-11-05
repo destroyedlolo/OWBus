@@ -18,7 +18,6 @@ public:
 	const float BAD_TEMPERATURE = 9999.0;
 	static const uint8_t FAMILLY_CODE = 0x28;
 
-	float readLastTemperature();		// Read current scratchpad value
 	unsigned long getConversionDelay();	// Delay needed for the conversion
 	uint8_t getResolution();			// return 0 in case of error
 	bool setResolution(uint8_t resolution=12);		// if < 9, set to 9, if > 12, set to 12
@@ -40,7 +39,8 @@ public:
 		 * power supply.
 		 */
 	bool launchTemperatureAquisition( bool parasite=true );	// Launch temperature acquisition
-	float getTemperature( bool parasite=true );				// Launch a conversion and read the temperature
+	float readLastTemperature();	// Read current scratchpad value (get the temperature without requesting a new acquisition
+	float getTemperature( bool parasite=true );	// Launch a conversion and read the temperature
 };
 
 #endif
