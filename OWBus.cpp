@@ -81,9 +81,6 @@ bool OWScratchpad::readScratchpad(){
 #include <OWBus/DS28EA00.h>
 
 bool DS18B20::writeScratchpad(bool force){
-	if(!force && !this->isValidScratchpad())	// The scratchpad is not valid
-		return false;
-
 	OneWire *ow = this->getBus().getOWTechLayer();
 	if(!ow->reset())
 		return false;
@@ -93,6 +90,7 @@ bool DS18B20::writeScratchpad(bool force){
 	ow->write( this->operator[](DS18B20::SCRATCHPAD_INDEX::LOW_ALARM_TEMPERATURE) );
 	ow->write( this->operator[](DS18B20::SCRATCHPAD_INDEX::CONFIGURATION) );
 
+	this->operator[](DS18B20::SCRATCHPAD_INDEX::SCRATCHPAD_CRC) = OneWire::crc8(this->getScratchpadMemory(), 8);	// Force a valid scratchpad
 	return(ow->reset());
 }
 

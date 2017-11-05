@@ -4,7 +4,7 @@
  */
 
 #ifndef OWDS18B20_H
-#define OWDS18B20_H	0.0300
+#define OWDS18B20_H	0.0301
 
 #include <OWBus.h>
 #include <OWBus/OWDevice.h>
@@ -29,9 +29,9 @@ public:
 		CONFIGURATION, SCRATCHPAD_CRC=8
 	};
 	virtual bool isValidScratchpad(){	// Verify scratchpad CRC
-		return( OneWire::crc8(this->getScratchpadMemory(), 8) == this->operator [](8) );
+		return( OneWire::crc8(this->getScratchpadMemory(), 8) == this->operator [](SCRATCHPAD_INDEX::SCRATCHPAD_CRC) );
 	}
-	virtual bool writeScratchpad(bool force);	// Not, it is not copied to the EEPROM
+	virtual bool writeScratchpad();	// Not, it is not copied to the EEPROM
 
 		/* if parasite == true, force the bus to be high during the conversion
 		 * it's mandatory for parasite-powered probes
