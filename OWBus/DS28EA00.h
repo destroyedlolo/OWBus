@@ -4,32 +4,25 @@
  */
 
 #ifndef OWDS28EA00_H
-#define OWDS28EA00_H 0.0100
+#define OWDS28EA00_H 0.0200
 
 #include <OWBus.h>
 #include <OWBus/DS18B20.h>
+#include <OWBus/DS2413.h>
 
 	/* Fortunately, DS28EA00 is a DS18B20 in temperature acquisition point of view */
-class DS28EA00 : public DS18B20 {
-	uint8_t lastPIOs;
-
+class DS28EA00 : public DS18B20, public DS2413 {
 public:
-	DS28EA00( OWBus &abus, OWBus::Address &aa ) : DS18B20( abus, aa ) {}
-	DS28EA00( OWBus &abus, uint64_t aa ) : DS18B20( abus, aa ) {}
+	DS28EA00( OWBus &abus, OWBus::Address &aa ) : DS18B20( abus, aa ), DS2413(abus, aa) {}
+	DS28EA00( OWBus &abus, uint64_t aa ) : DS18B20( abus, aa ), DS2413(abus, aa) {}
+
+	virtual uint8_t getOWCommand( OWDevice::OWCommands c ){
+		if( c==OWDevice::OWCommands::PIO_WRITE )
+			return 0xa5;
+		return DS18B20::getOWCommand(c);
+	}
 
 	static const uint8_t FAMILLY_CODE = 0x42;
-
-		/* Both PIOs are read or written at the same time */
-	enum PIObitsvalue { PIOAbit=1, PIOBbit=2 };
-	enum PIOmask { PIONONEmask=0xff, PIOAmask=0xfe, PIOBmask=0xfd };
-
-		// If no argument is provided, takes the last readPIOs() value
-	bool PIOA( uint8_t val = (uint8_t)-1 );
-	bool PIOB( uint8_t val = (uint8_t)-1 );
-	bool arePIOsValid( uint8_t val = (uint8_t)-1 );
-
-	uint8_t readPIOs();	// Read PIOs
-	bool writePIOs( uint8_t );	// Write PIOs
 };
 
 #endif

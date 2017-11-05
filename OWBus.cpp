@@ -186,7 +186,9 @@ float DS18B20::getTemperature(bool parasite){
 	/* DS28EA00 specifics
 	 *	ports are active when LOW.
 	 */
-bool DS28EA00::writePIOs( uint8_t val ){
+#include <OWBus/DS2413.h>
+
+bool DS2413::writePIOs( uint8_t val ){
 	OneWire *ow = getBus().getOWTechLayer();
 
 	if(!ow->reset())
@@ -205,7 +207,7 @@ bool DS28EA00::writePIOs( uint8_t val ){
 	return res;
 }
 
-uint8_t DS28EA00::readPIOs(){
+uint8_t DS2413::readPIOs(){
 	OneWire *ow = getBus().getOWTechLayer();
 
 	if(!ow->reset())
@@ -220,19 +222,19 @@ uint8_t DS28EA00::readPIOs(){
 	return( this->lastPIOs );
 }
 
-bool DS28EA00::PIOA( uint8_t val ){
+bool DS2413::PIOA( uint8_t val ){
 	if(val == (uint8_t)-1)
 		val = this->lastPIOs;
 	return(val & 1);
 }
 
-bool DS28EA00::PIOB( uint8_t val ){
+bool DS2413::PIOB( uint8_t val ){
 	if(val == (uint8_t)-1)
 		val = this->lastPIOs;
 	return(val & 4);
 }
 
-bool DS28EA00::arePIOsValid( uint8_t val ){
+bool DS2413::arePIOsValid( uint8_t val ){
 	if(val == (uint8_t)-1)
 		val = this->lastPIOs;
 
@@ -255,9 +257,11 @@ bool OWBus::launchTemperatureAcquisition(bool parasite){
 const char *OWBus::Address::getFamilly(){
 	switch(addr[0]){
 	case DS18B20::FAMILLY_CODE :
-		return "18B20";
+		return "DS18B20";
 	case DS28EA00::FAMILLY_CODE:
-		return "28EA00";
+		return "DS28EA00";
+	case DS2413::FAMILLY_CODE:
+		return "DS2413";
 	default :
 		return "Unknown";
 	}

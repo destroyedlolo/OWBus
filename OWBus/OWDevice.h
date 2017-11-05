@@ -3,7 +3,7 @@
  * 02/11/2017 - L.Faillie - First version
  */
 #ifndef OWDEVICE_H
-#define OWDEVICE_H 0.0200
+#define OWDEVICE_H 0.0300
 
 #include <OWBus.h>
 
@@ -26,9 +26,10 @@ public:
 		 */
 	enum OWCommands {
 		CONVERT_T=0x44,
-		WRITE_SCRATCHPAD=0x4e, READ_SCRATCHPAD=0xBE, COPY_SCRATCHPAD=0x48,
-		RECALL_E2=0xb8, READ_POWER_SUPPLY=0xB4,
-		PIO_READ=0xf5, PIO_WRITE=0xa5
+		WRITE_SCRATCHPAD=0x4e, READ_SCRATCHPAD=0xBE,
+		COPY_SCRATCHPAD=0x48, RECALL_E2=0xb8,
+		PIO_READ=0xf5, PIO_WRITE=0x5a,
+		RESUME=0xa5, READ_POWER_SUPPLY=0xB4,
 	};
 	virtual uint8_t getOWCommand( OWCommands c ){ return c; }
 

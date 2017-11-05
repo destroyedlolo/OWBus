@@ -60,3 +60,10 @@ Handles ds28ea00 temperature probe as well as its PIOs.
 - Chain : *To be done*
 - PIO writing : **Tested ok**
 - PIO reading : **Tested ok**
+
+## DS2413
+Handles ds2413 dual simple PIOs
+
+### Features Support
+- PIO writing : **implemented but untested**
+- PIO reading : **implemented but untested**
