@@ -76,28 +76,28 @@ bool OWScratchpad::readScratchpad(){
 	return(!!ow->reset());
 }
 
-bool OWScratchpad::writeScratchpad(bool force){
-	if(!force && !this->isValidScratchpad())	// The scratchpad is not valid
-		return false;
-
-	OneWire *ow = device->getBus().getOWTechLayer();
-	if(!ow->reset())
-		return false;
-
-	
-}
-
 	/* DS18B20 and DS28EA00 */
 #include <OWBus/DS18B20.h>
 #include <OWBus/DS28EA00.h>
+
+bool DS18B20::writeScratchpad(bool force){
+	if(!force && !this->isValidScratchpad())	// The scratchpad is not valid
+		return false;
+
+	OneWire *ow = this->getBus().getOWTechLayer();
+	if(!ow->reset())
+		return false;
+
+	ow->write( this->getOWCommand( OWDevice::OWCommands::WRITE_SCRATCHPAD ) );
+}
 
 float DS18B20::readLastTemperature(){
 	if(!this->readScratchpad() || !this->isValidScratchpad())
 		return this->BAD_TEMPERATURE;
 
-	int16_t val = (this->operator[](1) << 8) | this->operator[](0);
+	int16_t val = (this->operator[](DS18B20::SCRATCHPAD_INDEX::TEMPERATURE_MSB) << 8) | this->operator[](DS18B20::SCRATCHPAD_INDEX::TEMPERATURE_LSB);
 
-	switch(this->operator[](4) & 0x60){	// Clean unused bits
+	switch(this->operator[](DS18B20::SCRATCHPAD_INDEX::CONFIGURATION) & 0x60){	// Clean unused bits
 	case 0x00: val &= ~7;	// 9 bits
 		break;
 	case 0x20: val &= ~3;	// 10 bits
@@ -115,7 +115,7 @@ unsigned long DS18B20::getConversionDelay(){
 	if(virgin && !this->readScratchpad())
 		return 1000;	// By default, we will wait for a second
 
-	switch(this->operator[](4) & 0x60){
+	switch(this->operator[](DS18B20::SCRATCHPAD_INDEX::CONFIGURATION) & 0x60){
 	case 0x00: return 94;	// 9 bits
 	case 0x20: return 188;	// 10 bits
 	case 0x40: return 375;	// 11 bits
@@ -128,7 +128,7 @@ uint8_t DS18B20::getResolution(){
 	if(virgin && !this->readScratchpad())	// read scratchpad if not already done
 		return 0;
 
-	switch(this->operator[](4) & 0x60){
+	switch(this->operator[](DS18B20::SCRATCHPAD_INDEX::CONFIGURATION) & 0x60){
 	case 0x00: return 9;
 	case 0x20: return 10;
 	case 0x40: return 11;
@@ -147,7 +147,7 @@ bool DS18B20::setResolution(uint8_t v){
 	if(v == c)	// Already to good value
 		return true;
 
-	c = this->operator[](4);	// Byte storing the resolution
+	c = this->operator[](DS18B20::SCRATCHPAD_INDEX::CONFIGURATION);	// Byte storing the resolution
 	c &= ~0x60;
 	switch( v ){	// Nothing to do for 9bits resolution
 	case 10:

@@ -23,9 +23,15 @@ public:
 	uint8_t getResolution();			// return 0 in case of error
 	bool setResolution(uint8_t resolution=12);		// if < 9, set to 9, if > 12, set to 12
 
-	bool isValidScratchpad(){	// Verify scratchpad CRC
+	enum SCRATCHPAD_INDEX {
+		TEMPERATURE_LSB=0, TEMPERATURE_MSB,
+		HIGH_ALARM_TEMPERATURE, LOW_ALARM_TEMPERATURE,
+		CONFIGURATION, SCRATCHPAD_CRC=8
+	};
+	virtual bool isValidScratchpad(){	// Verify scratchpad CRC
 		return( OneWire::crc8(this->getScratchpadMemory(), 8) == this->operator [](8) );
 	}
+	virtual bool writeScratchpad(bool force);
 
 		/* if parasite == true, force the bus to be high during the conversion
 		 * it's mandatory for parasite-powered probes
