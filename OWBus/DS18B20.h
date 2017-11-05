@@ -38,7 +38,7 @@ public:
 		 * it's advisable for externally powered probes to ensure strong
 		 * power supply.
 		 */
-	bool launchTemperatureAquisition( bool parasite=true );	// Launch temperature acquisition
+	bool launchTemperatureAcquisition( bool parasite=true );	// Launch temperature acquisition
 	float readLastTemperature();	// Read current scratchpad value (get the temperature without requesting a new acquisition
 	float getTemperature( bool parasite=true );	// Launch a conversion and read the temperature
 };

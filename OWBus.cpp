@@ -165,7 +165,7 @@ bool DS18B20::setResolution(uint8_t v){
 	return this->writeScratchpad();
 }
 
-bool DS18B20::launchTemperatureAquisition(bool parasite){
+bool DS18B20::launchTemperatureAcquisition(bool parasite){
 	OneWire *ow = getBus().getOWTechLayer();
 	
 	if(!ow->reset())
@@ -177,7 +177,7 @@ bool DS18B20::launchTemperatureAquisition(bool parasite){
 }
 
 float DS18B20::getTemperature(bool parasite){
-	if(!this->launchTemperatureAquisition( parasite ))
+	if(!this->launchTemperatureAcquisition( parasite ))
 		return this->BAD_TEMPERATURE;
 	delay( this->getConversionDelay() );
 	return this->readLastTemperature();
@@ -240,7 +240,7 @@ bool DS28EA00::arePIOsValid( uint8_t val ){
 }
 
 	/* Generic probe related functions */
-bool OWBus::launchTemperatureAquisition(bool parasite){
+bool OWBus::launchTemperatureAcquisition(bool parasite){
 	OneWire *ow = this->getOWTechLayer();
 	
 	if(!ow->reset())

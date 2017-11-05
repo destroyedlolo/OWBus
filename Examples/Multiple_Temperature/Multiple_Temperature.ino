@@ -41,7 +41,7 @@ void loop() {
 	Serial.println( parasite ? "Parasite mode" : "External mode" );
 
 		/* Broadcast conversions request */
-	bus.launchTemperatureAquisition(parasite);
+	bus.launchTemperatureAcquisition(parasite);
 	delay(duration);	// Waiting for conversions to be done
 
 	Serial.print( (probe1.getAddress().toString() + " (" + probe1.getFamilly() + ") : ").c_str() );

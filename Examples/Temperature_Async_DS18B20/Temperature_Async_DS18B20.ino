@@ -21,7 +21,7 @@ void loop() {
 	bool parasite = probe.isParasitePowered();
 	Serial.println( parasite ? "Parasite":"External" );
 
-	probe.launchTemperatureAquisition( parasite );	// Launch conversion
+	probe.launchTemperatureAcquisition( parasite );	// Launch conversion
 	delay( probe.getConversionDelay() );			// Wait as per precision
 	Serial.println( probe.readLastTemperature() );
 

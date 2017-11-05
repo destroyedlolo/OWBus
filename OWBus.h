@@ -67,7 +67,7 @@ public:
 		/* Launch temperature conversion on all probe on the bus
 		 * (but ds2422)
 		 */
-	bool launchTemperatureAquisition( bool parasite=true );
+	bool launchTemperatureAcquisition( bool parasite=true );
 };
 
 #endif
