@@ -89,6 +89,11 @@ bool DS18B20::writeScratchpad(bool force){
 		return false;
 
 	ow->write( this->getOWCommand( OWDevice::OWCommands::WRITE_SCRATCHPAD ) );
+	ow->write( this->operator[](DS18B20::SCRATCHPAD_INDEX::HIGH_ALARM_TEMPERATURE) );
+	ow->write( this->operator[](DS18B20::SCRATCHPAD_INDEX::LOW_ALARM_TEMPERATURE) );
+	ow->write( this->operator[](DS18B20::SCRATCHPAD_INDEX::CONFIGURATION) );
+
+	return(ow->reset());
 }
 
 float DS18B20::readLastTemperature(){

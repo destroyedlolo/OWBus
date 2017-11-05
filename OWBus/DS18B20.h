@@ -31,7 +31,7 @@ public:
 	virtual bool isValidScratchpad(){	// Verify scratchpad CRC
 		return( OneWire::crc8(this->getScratchpadMemory(), 8) == this->operator [](8) );
 	}
-	virtual bool writeScratchpad(bool force);
+	virtual bool writeScratchpad(bool force);	// Not, it is not copied to the EEPROM
 
 		/* if parasite == true, force the bus to be high during the conversion
 		 * it's mandatory for parasite-powered probes
