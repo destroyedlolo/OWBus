@@ -80,7 +80,7 @@ bool OWScratchpad::readScratchpad(){
 #include <OWBus/DS18B20.h>
 #include <OWBus/DS28EA00.h>
 
-bool DS18B20::writeScratchpad(bool force){
+bool DS18B20::writeScratchpad(){
 	OneWire *ow = this->getBus().getOWTechLayer();
 	if(!ow->reset())
 		return false;
