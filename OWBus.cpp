@@ -241,6 +241,10 @@ bool DS2413::arePIOsValid( uint8_t val ){
 	return((val & 0x0f) == (~((val & 0xf0) >> 4) & 0x0f ));
 }
 
+	/* DS2406 specifics
+	 */
+#include <OWBus/DS2406.h>
+
 	/* Generic probe related functions */
 bool OWBus::launchTemperatureAcquisition(bool parasite){
 	OneWire *ow = this->getOWTechLayer();
@@ -260,6 +264,8 @@ const char *OWBus::Address::getFamilly(){
 		return "DS18B20";
 	case DS28EA00::FAMILLY_CODE:
 		return "DS28EA00";
+	case DS2406::FAMILLY_CODE:
+		return "DS2406";
 	case DS2413::FAMILLY_CODE:
 		return "DS2413";
 	default :
