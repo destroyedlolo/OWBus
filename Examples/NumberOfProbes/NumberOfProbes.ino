@@ -7,13 +7,16 @@
 #include <OWBus.h>
 #include <OWBus/OWDevice.h>
 
-#define ONE_WIRE_BUS D1					// Where O1 bus is connected to
+#define ONE_WIRE_BUS 5			// Where 1-wire bus is connected to (GPIO-5)
 OneWire oneWire(ONE_WIRE_BUS);	// Initialize oneWire library
 OWBus bus(&oneWire);
 
 void setup() {
 	Serial.begin(115200);
 	delay(100);
+
+	Serial.print("Flash's size : ");
+	Serial.println(ESP.getFlashChipRealSize());
 }
 
 void loop() {
