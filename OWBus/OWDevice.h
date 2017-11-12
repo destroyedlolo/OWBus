@@ -15,8 +15,8 @@ private:
 	String name;
 
 public:
-	OWDevice( OWBus &abus, OWBus::Address &aa, const char aname=NULL ) : bus(abus), addr(aa){ if(aname) name=aname; };
-	OWDevice( OWBus &abus, uint64_t aa, const char aname=NULL ) : bus(abus), addr(aa){ if(aname) name=aname; };
+	OWDevice( OWBus &abus, OWBus::Address &aa, const char *aname=NULL ) : bus(abus), addr(aa){ if(aname) name=aname; };
+	OWDevice( OWBus &abus, uint64_t aa, const char *aname=NULL ) : bus(abus), addr(aa){ if(aname) name=aname; };
 
 		/* This enum contains all (useful) known 1-w commands.
 		 * Commands directly handled by OneWire library are omitted.
@@ -44,6 +44,7 @@ public:
 	OWBus::Address &getAddress(){ return addr; }
 	const char *getFamilly(){ return addr.getFamilly(); }
 	bool isParasitePowered();
+	String getName();
 };
 
 #endif

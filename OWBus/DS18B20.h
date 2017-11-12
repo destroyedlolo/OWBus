@@ -12,8 +12,8 @@
 
 class DS18B20 : public OWDevice, public OWScratchpad{
 public:
-	DS18B20( OWBus &abus, OWBus::Address &aa, const char aname=NULL ) : OWDevice( abus, aa, aname ), OWScratchpad( this, 9 ) {}
-	DS18B20( OWBus &abus, uint64_t aa, const char aname=NULL ) : OWDevice( abus, aa, aname ), OWScratchpad( this, 9 ) {}
+	DS18B20( OWBus &abus, OWBus::Address &aa, const char *aname=NULL ) : OWDevice( abus, aa, aname ), OWScratchpad( this, 9 ) {}
+	DS18B20( OWBus &abus, uint64_t aa, const char *aname=NULL ) : OWDevice( abus, aa, aname ), OWScratchpad( this, 9 ) {}
 
 	const float BAD_TEMPERATURE = 9999.0;
 	static const uint8_t FAMILLY_CODE = 0x28;

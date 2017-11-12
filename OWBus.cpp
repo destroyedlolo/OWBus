@@ -50,6 +50,13 @@ bool OWDevice::isParasitePowered(){
 	return r;
 }
 
+String OWDevice::getName(){
+	if(name)
+		return name;
+	else
+		return this->getAddress().toString();
+}
+
 	/* Scratchpad */
 #include <OWBus/OWScratchpad.h>
 
