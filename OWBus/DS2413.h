@@ -22,6 +22,7 @@ public:
 	DS2413( OWBus &abus, uint64_t aa ) : OWDevice( abus, aa ) {}
 
 	static const uint8_t FAMILLY_CODE = 0x3A;
+	virtual uint64_t getOWCapability(){ return(OWDevice::OWCapabilities::PIO); }
 
 		/* Both PIOs are read or written at the same time */
 	enum PIObitsvalue { PIOAbit=1, PIOBbit=2 };

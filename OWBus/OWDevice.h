@@ -34,6 +34,11 @@ public:
 	};
 	virtual uint8_t getOWCommand( OWCommands c ){ return c; }
 
+	enum OWCapabilities {	// caution : 1 bit per capability
+		TEMPERATURE = 1, PIO = 2, EEPROM = 4
+	};
+	virtual uint64_t getOWCapability() = 0;
+
 	OWBus &getBus(){ return bus; }
 	OWBus::Address &getAddress(){ return addr; }
 	const char *getFamilly(){ return addr.getFamilly(); }

@@ -14,6 +14,9 @@ public:
 	DS2406( OWBus &abus, uint64_t aa ) : OWDevice( abus, aa ) {}
 
 	static const uint8_t FAMILLY_CODE = 0x12;
+
+	virtual uint64_t getOWCapability(){ return(OWDevice::OWCapabilities::EEPROM | OWDevice::OWCapabilities::PIO); }
+
 };
 
 #endif
