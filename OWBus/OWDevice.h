@@ -3,7 +3,7 @@
  * 02/11/2017 - L.Faillie - First version
  */
 #ifndef OWDEVICE_H
-#define OWDEVICE_H 0.0300
+#define OWDEVICE_H 0.0400
 
 #include <OWBus.h>
 
@@ -12,10 +12,11 @@ public:
 private:
 	OWBus &bus;
 	OWBus::Address addr;
+	String name;
 
 public:
-	OWDevice( OWBus &abus, OWBus::Address &aa ) : bus(abus), addr(aa){};
-	OWDevice( OWBus &abus, uint64_t aa ) : bus(abus), addr(aa){};
+	OWDevice( OWBus &abus, OWBus::Address &aa, const char aname=NULL ) : bus(abus), addr(aa){ if(aname) name=aname; };
+	OWDevice( OWBus &abus, uint64_t aa, const char aname=NULL ) : bus(abus), addr(aa){ if(aname) name=aname; };
 
 		/* This enum contains all (useful) known 1-w commands.
 		 * Commands directly handled by OneWire library are omitted.

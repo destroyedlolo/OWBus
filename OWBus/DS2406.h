@@ -10,8 +10,8 @@
 
 class DS2406 : public OWDevice {
 public:
-	DS2406( OWBus &abus, OWBus::Address &aa ) : OWDevice( abus, aa ) {}
-	DS2406( OWBus &abus, uint64_t aa ) : OWDevice( abus, aa ) {}
+	DS2406( OWBus &abus, OWBus::Address &aa, const char aname=NULL ) : OWDevice( abus, aa, aname ) {}
+	DS2406( OWBus &abus, uint64_t aa, const char aname=NULL ) : OWDevice( abus, aa, aname ) {}
 
 	static const uint8_t FAMILLY_CODE = 0x12;
 
