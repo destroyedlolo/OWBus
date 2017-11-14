@@ -3,20 +3,32 @@
  * 09/11/2017 - L.Faillie - First version
  */
 #ifndef OWDS2406_H
-#define OWDS2406_H	0.0100
+#define OWDS2406_H	0.0101
 
 #include <OWBus.h>
 #include <OWBus/OWDevice.h>
 
 /* As per https://www.maximintegrated.com/en/app-notes/index.mvp/id/5856
  *
- * Channel control byte :
+ * Channel control byte 1 : (2 is always 0xff)
+ * -------------------------------------------
+ * ALR = 1 clear both latches, 0 keep them unchanged
  * TOG = 0 (else toggling between read and write)
  * IM = 0 writing, 1 reading
- * IC = 0 if only single channel
+ * IC = 0 if only single channel / 0 = async / 1 = sync (both updated simultaneously)
  * CHS0 = PIO.A
  * CHS1 = PIO.B
+ * CRC1/0 = control CRC generation (0 = none)
  *
+ * Channel info byte :
+ * -------------------
+ * 1/0: PIO.B/PIO.A flip-flop (0 = conducting)
+ * 3/2: PIO.B/PIO.A sensed reading
+ * 5/4: PIO.B/PIO.A latches
+ * 6: 0 = A only, 1 = B present
+ * 7:  0 = parasite, 1 = power 
+ *
+ * ==========================
  * STATUS Memory (addr 7)
  * -------------
  * 0: 
