@@ -53,9 +53,34 @@
  */
 
 class DS2406 : public OWDevice {
+private:
+	union {
+		struct {
+			unsigned int crc : 2;
+			unsigned int chs_A : 1;
+			unsigned int chs_B : 1;
+			unsigned int ic : 1;
+			unsigned int im : 1;
+			unsigned int tog : 1;
+			unsigned int alr : 1;
+		} bits;
+		uint8_t byte;
+	} ChannelControl ;
+
 public:
 	DS2406( OWBus &abus, OWBus::Address &aa, const char *aname=NULL ) : OWDevice( abus, aa, aname ) {}
 	DS2406( OWBus &abus, uint64_t aa, const char *aname=NULL ) : OWDevice( abus, aa, aname ) {}
+
+#ifdef IMPLEMENT_BITFIELD_TEST
+		/* Check the order of bits fields 
+		 *	*MUST* return 128
+		 */
+	bool checkArchitecture(){
+		ChannelControl.byte = 0;
+		ChannelControl.bits.alr = true;
+		return (ChannelControl.byte == 128);
+	}
+#endif
 
 	static const uint8_t FAMILLY_CODE = 0x12;
 
