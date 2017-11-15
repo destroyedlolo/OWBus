@@ -3,12 +3,10 @@
  * 09/11/2017 - L.Faillie - First version
  */
 #ifndef OWDS2406_H
-#define OWDS2406_H	0.0101
+#define OWDS2406_H	0.0201
 
 #include <OWBus.h>
 #include <OWBus/OWDevice.h>
-
-/* As per https://www.maximintegrated.com/en/app-notes/index.mvp/id/5856 */
 
 class DS2406 : public OWDevice {
 private:
@@ -25,15 +23,17 @@ private:
 	 */
 	union {
 		struct {
-			unsigned int crc : 2;
-			unsigned int chs_A : 1;
-			unsigned int chs_B : 1;
-			unsigned int ic : 1;
-			unsigned int im : 1;
-			unsigned int tog : 1;
-			unsigned int alr : 1;
+			unsigned int crc : 2;	// 0x01/02
+			unsigned int chs_A : 1;	// 0x04
+			unsigned int chs_B : 1;	// 0x08
+			unsigned int ic : 1;	// 0x10
+			unsigned int im : 1;	// 0x20
+			unsigned int tog : 1;	// 0x40
+			unsigned int alr : 1;	// 0x80
 		} bits;
 		uint8_t byte;
+
+		void clear(){ this->byte = 0; }
 	} ChannelControl;
 
 	/* Channel info byte :
@@ -57,6 +57,7 @@ private:
 		} bits;
 		uint8_t byte;
 	} ChannelInfo;
+	bool isChannelInfoValide;
 
 	/* STATUS Memory
 	 * -------------
@@ -82,16 +83,20 @@ private:
 	 */
 	union {
 		struct {
+				/* Condition search parameters */
 			unsigned int polarity : 1;
 			unsigned int sources : 2;
 			unsigned int channelA : 1;
 			unsigned int channelB : 1;
+
+				/* copy of ChannelInfo */
 			unsigned int flipflopA : 1;
 			unsigned int flipflopB : 1;
 			unsigned int supply : 1;
 		} bits;
 		uint8_t byte;
 	} StatusMemory;
+	bool isStatusMemoryValide;
 
 public:
 	enum Source {	// Condition search sources
@@ -105,7 +110,7 @@ public:
 		/* Check the order of bits fields 
 		 *	*MUST* return 128
 		 */
-	bool checkArchitecture(){
+	bool checkArchitecture( void ){
 		ChannelControl.byte = 0;
 		ChannelControl.bits.alr = true;
 		return (ChannelControl.byte == 128);
@@ -116,6 +121,30 @@ public:
 
 	virtual uint64_t getOWCapability(){ return(OWDevice::OWCapabilities::EEPROM | OWDevice::OWCapabilities::PIO | OWDevice::OWCapabilities::PIO_ALARM ); }
 
-};
 
+	/* 
+	 * DS2406's
+	 */
+
+	void clear( void ){	/* Clear all fields */
+		ChannelControl.clear();
+		isChannelInfoValide = false;
+		isStatusMemoryValide = false;
+	}
+
+
+	/* Access functions.
+	 * Try to be as compatible as possible with other PIO capables chipts
+	 */
+	enum PIObitsvalue { PIOAbit=1, PIOBbit=2 };
+
+	bool PIOA( uint8_t val = (uint8_t)-1 );
+	bool PIOB( uint8_t val = (uint8_t)-1 );
+	bool arePIOsValid( uint8_t val = (uint8_t)-1 );
+
+	uint8_t readPIOs();	// Read PIOs
+	bool writePIOs( uint8_t );	// Write PIOs
+	bool setPIOA( bool val, bool portB = false );	// if true, PortB select B
+	bool setPIOB( bool val ) { this->setPIOA( val, true ); }
+};
 #endif

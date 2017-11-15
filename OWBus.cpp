@@ -249,10 +249,38 @@ bool DS2413::arePIOsValid( uint8_t val ){
 }
 
 	/* DS2406 specifics
+	 *	ports are active when LOW.
 	 */
 #include <OWBus/DS2406.h>
 
-	/* Generic probe related functions */
+/* As per https://www.maximintegrated.com/en/app-notes/index.mvp/id/5856 */
+bool DS2406::setPIOA( bool val, bool portB ){
+	this->ChannelControl.clear();
+	if(!portB)
+		this->ChannelControl.bits.chs_A = true;
+	else
+		this->ChannelControl.bits.chs_B = true;
+
+	OneWire *ow = getBus().getOWTechLayer();
+	if(!ow->reset())
+		return false;
+	
+	ow->select(*this->getAddress());
+	ow->write( this->getOWCommand( OWDevice::OWCommands::CHANNEL_ACCESS ) );
+	ow->write( this->ChannelControl.byte ); // Channel Control Byte 1
+	ow->write( 0xff ); // Channel Control Byte 2
+	this->ChannelInfo.byte = ow->read();	// Read Channel Info
+	this->isChannelInfoValide = true;
+	ow->write_bit( val );
+
+	ow->reset();
+	
+	return true;
+}
+
+	/*
+	 * General functions 
+	 */
 bool OWBus::launchTemperatureAcquisition(bool parasite){
 	OneWire *ow = this->getOWTechLayer();
 	
@@ -272,7 +300,7 @@ const char *OWBus::Address::getFamilly(){
 	case DS28EA00::FAMILLY_CODE:
 		return "DS28EA00";
 	case DS2406::FAMILLY_CODE:
-		return "DS2406";
+		return "DS2406";	/* and DS2407 */
 	case DS2413::FAMILLY_CODE:
 		return "DS2413";
 	default :
