@@ -67,3 +67,20 @@ Handles ds2413 dual simple PIOs
 ### Features Support
 - PIO writing : **implemented but untested**
 - PIO reading : **implemented but untested**
+
+## DS2406
+Handle ds2406 and 07 (which is dectected as DS2406)
+
+### Important Note :
+Before working with a new device, please test
+**NumberOfProbes.ino** with *Test bits ordering* enabled.
+It must output "*Arch Ok*" otherwise open a bug report.
+
+### Features Support
+- EEPROM Writing : **Not implemented** and will probably remain
+- EEPROM Reading : *To be done*
+- Alarms : *To be done*
+- EEprom : *To be done*
+- PIO writing : *To be done*
+- PIO reading : *To be done*
+

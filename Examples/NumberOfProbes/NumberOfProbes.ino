@@ -7,7 +7,7 @@
 #include <OWBus.h>
 #include <OWBus/OWDevice.h>
 
-#if 1	/* Test bits ordering */
+#if 0	/* Test bits ordering */
 #define IMPLEMENT_BITFIELD_TEST
 #include <OWBus/DS2406.h>
 #endif
