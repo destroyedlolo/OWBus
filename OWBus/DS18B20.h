@@ -17,7 +17,7 @@ public:
 
 	const float BAD_TEMPERATURE = 9999.0;
 	static const uint8_t FAMILLY_CODE = 0x28;
-	virtual uint64_t getOWCapability(){ return(OWDevice::OWCapabilities::TEMPERATURE | OWDevice::OWCapabilities::EEPROM); }
+	virtual uint64_t getOWCapability(){ return(OWDevice::OWCapabilities::TEMPERATURE | OWDevice::OWCapabilities::EEPROM | OWDevice::OWCapabilities::TEMPERATURE_ALARM ); }
 
 	unsigned long getConversionDelay();	// Delay needed for the conversion
 	uint8_t getResolution();			// return 0 in case of error

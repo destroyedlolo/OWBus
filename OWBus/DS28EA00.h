@@ -21,7 +21,7 @@ public:
 			return 0xa5;
 		return DS18B20::getOWCommand(c);
 	}
-	virtual uint64_t getOWCapability(){ return(OWDevice::OWCapabilities::TEMPERATURE | OWDevice::OWCapabilities::PIO); }
+	virtual uint64_t getOWCapability(){ return(OWDevice::OWCapabilities::TEMPERATURE | OWDevice::OWCapabilities::PIO | OWDevice::OWCapabilities::TEMPERATURE_ALARM ); }
 
 	static const uint8_t FAMILLY_CODE = 0x42;
 };

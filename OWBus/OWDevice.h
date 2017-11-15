@@ -37,7 +37,8 @@ public:
 	virtual uint8_t getOWCommand( OWCommands c ){ return c; }
 
 	enum OWCapabilities {	// caution : 1 bit per capability
-		TEMPERATURE = 1, PIO = 2, EEPROM = 4
+		TEMPERATURE = 1, PIO = 2, EEPROM = 4,
+		TEMPERATURE_ALARM = 8, PIO_ALARM = 0x10
 	};
 	virtual uint64_t getOWCapability(){ return 0; }
 
