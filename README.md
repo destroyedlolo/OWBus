@@ -81,6 +81,6 @@ It must output "*Arch Ok*" otherwise open a bug report.
 - EEPROM Reading : *To be done*
 - Alarms : *To be done*
 - EEprom : *To be done*
-- PIO writing : *To be done*
+- PIO writing : **Tested ok**
 - PIO reading : *To be done*
 
