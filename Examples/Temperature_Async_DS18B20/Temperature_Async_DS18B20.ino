@@ -7,7 +7,7 @@
 #include <OWBus.h>
 #include <OWBus/DS18B20.h>
 
-#define ONE_WIRE_BUS D1					// Where O1 bus is connected to
+#define ONE_WIRE_BUS D1					// Where 1W bus is connected to
 OneWire oneWire(ONE_WIRE_BUS);	// Initialize oneWire library
 OWBus bus(&oneWire);
 
