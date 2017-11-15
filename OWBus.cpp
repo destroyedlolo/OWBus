@@ -254,13 +254,7 @@ bool DS2413::arePIOsValid( uint8_t val ){
 #include <OWBus/DS2406.h>
 
 /* As per https://www.maximintegrated.com/en/app-notes/index.mvp/id/5856 */
-bool DS2406::setPIOA( bool val, bool portB ){
-	this->ChannelControl.clear();
-	if(!portB)
-		this->ChannelControl.bits.chs_A = true;
-	else
-		this->ChannelControl.bits.chs_B = true;
-
+bool DS2406::doChannelAcccess( bool reset ){
 	OneWire *ow = getBus().getOWTechLayer();
 	if(!ow->reset())
 		return false;
@@ -271,8 +265,22 @@ bool DS2406::setPIOA( bool val, bool portB ){
 	ow->write( 0xff ); // Channel Control Byte 2
 	this->ChannelInfo.byte = ow->read();	// Read Channel Info
 	this->isChannelInfoValide = true;
-	ow->write_bit( val );
 
+	if(reset) ow->reset();
+
+	return true;
+}
+
+bool DS2406::setPIOA( bool val, bool portB ){
+	this->ChannelControl.clear();
+	if(!portB)
+		this->ChannelControl.bits.chs_A = true;
+	else
+		this->ChannelControl.bits.chs_B = true;
+
+	OneWire *ow = getBus().getOWTechLayer();
+	this->doChannelAcccess( false );
+	ow->write_bit( val );
 	ow->reset();
 	
 	return true;

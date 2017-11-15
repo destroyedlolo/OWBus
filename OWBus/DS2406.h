@@ -132,6 +132,7 @@ public:
 		isStatusMemoryValide = false;
 	}
 
+	bool doChannelAcccess( bool reset=true );	// reset = true if we don't need the bus afterward
 
 	/* Access functions.
 	 * Try to be as compatible as possible with other PIO capables chipts
