@@ -29,8 +29,8 @@ public:
 	enum PIOmask { PIONONEmask=0xff, PIOAmask=0xfe, PIOBmask=0xfd };
 
 		// If no argument is provided, takes the last readPIOs() value
-	bool PIOA( uint8_t val = (uint8_t)-1 );
-	bool PIOB( uint8_t val = (uint8_t)-1 );
+	bool getPIOA( uint8_t val = (uint8_t)-1 );
+	bool getPIOB( uint8_t val = (uint8_t)-1 );
 	bool arePIOsValid( uint8_t val = (uint8_t)-1 );
 
 	uint8_t readPIOs();	// Read PIOs

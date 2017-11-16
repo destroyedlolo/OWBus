@@ -229,13 +229,13 @@ uint8_t DS2413::readPIOs(){
 	return( this->lastPIOs );
 }
 
-bool DS2413::PIOA( uint8_t val ){
+bool DS2413::getPIOA( uint8_t val ){
 	if(val == (uint8_t)-1)
 		val = this->lastPIOs;
 	return(val & 1);
 }
 
-bool DS2413::PIOB( uint8_t val ){
+bool DS2413::getPIOB( uint8_t val ){
 	if(val == (uint8_t)-1)
 		val = this->lastPIOs;
 	return(val & 4);
@@ -254,7 +254,7 @@ bool DS2413::arePIOsValid( uint8_t val ){
 #include <OWBus/DS2406.h>
 
 /* As per https://www.maximintegrated.com/en/app-notes/index.mvp/id/5856 */
-bool DS2406::doChannelAcccess( bool reset ){
+bool DS2406::doChannelAccess( bool reset ){
 	OneWire *ow = getBus().getOWTechLayer();
 	if(!ow->reset())
 		return false;
@@ -279,7 +279,7 @@ bool DS2406::setPIOA( bool val, bool portB ){
 		this->ChannelControl.bits.chs_B = true;
 
 	OneWire *ow = getBus().getOWTechLayer();
-	this->doChannelAcccess( false );
+	this->doChannelAccess( false );
 	ow->write_bit( val );
 	ow->reset();
 	

@@ -34,6 +34,8 @@ private:
 		uint8_t byte;
 
 		void clear(){ this->byte = 0; }
+		bool send( bool reset=true );	// reset = true if we don't need the bus afterward
+
 	} ChannelControl;
 
 	/* Channel info byte :
@@ -132,15 +134,15 @@ public:
 		isStatusMemoryValide = false;
 	}
 
-	bool doChannelAcccess( bool reset=true );	// reset = true if we don't need the bus afterward
+	bool doChannelAccess( bool reset=true );	// reset = true if we don't need the bus afterward
 
 	/* Access functions.
 	 * Try to be as compatible as possible with other PIO capables chipts
 	 */
 	enum PIObitsvalue { PIOAbit=1, PIOBbit=2 };
 
-	bool PIOA( uint8_t val = (uint8_t)-1 );
-	bool PIOB( uint8_t val = (uint8_t)-1 );
+	bool getPIOA( uint8_t val = (uint8_t)-1 );
+	bool getPIOB( uint8_t val = (uint8_t)-1 );
 	bool arePIOsValid( uint8_t val = (uint8_t)-1 );
 
 	uint8_t readPIOs();	// Read PIOs
