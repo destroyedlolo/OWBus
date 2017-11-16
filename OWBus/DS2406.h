@@ -127,7 +127,7 @@ public:
 	/* 
 	 * DS2406's
 	 */
-
+protected:
 	void clear( void ){	/* Clear all fields */
 		ChannelControl.clear();
 		isChannelInfoValide = false;
@@ -139,6 +139,7 @@ public:
 	/* Access functions.
 	 * Try to be as compatible as possible with other PIO capables chipts
 	 */
+public:
 	enum PIObitsvalue { PIOAbit=1, PIOBbit=2 };
 
 	bool getPIOA( uint8_t val = (uint8_t)-1 );
