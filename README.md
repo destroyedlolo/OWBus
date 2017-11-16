@@ -78,9 +78,8 @@ It must output "*Arch Ok*" otherwise open a bug report.
 
 ### Features Support
 - EEPROM Writing : **Not implemented** and will probably remain
-- EEPROM Reading : *To be done*
+- EEPROM Reading : *To be done* (or not, I'm not sure there is a need here)
 - Alarms : *To be done*
-- EEprom : *To be done*
 - PIO writing : **Tested ok**
-- PIO reading : *To be done*
+- PIO reading : **Tested ok**
 
