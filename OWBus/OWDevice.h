@@ -3,7 +3,7 @@
  * 02/11/2017 - L.Faillie - First version
  */
 #ifndef OWDEVICE_H
-#define OWDEVICE_H 0.0402
+#define OWDEVICE_H 0.0403
 
 #include <OWBus.h>
 
@@ -45,7 +45,7 @@ public:
 	OWBus &getBus(){ return bus; }
 	OWBus::Address &getAddress(){ return addr; }
 	const char *getFamilly(){ return addr.getFamilly(); }
-	bool isParasitePowered();
+	virtual bool isParasitePowered();
 	String getName();
 };
 

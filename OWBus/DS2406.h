@@ -3,7 +3,7 @@
  * 09/11/2017 - L.Faillie - First version
  */
 #ifndef OWDS2406_H
-#define OWDS2406_H	0.0201
+#define OWDS2406_H	0.0300
 
 #include <OWBus.h>
 #include <OWBus/OWDevice.h>
@@ -48,14 +48,14 @@ private:
 	 */
 	union {
 		struct {
-			unsigned int flipflopA : 1;
-			unsigned int flipflopB : 1;
-			unsigned int sensedA : 1;
-			unsigned int sensedB : 1;
-			unsigned int latchA : 1;
-			unsigned int latchB : 1;
-			unsigned int channels : 1;
-			unsigned int supply : 1;
+			unsigned int flipflopA : 1;	// 0x01
+			unsigned int flipflopB : 1;	// 0x02
+			unsigned int sensedA : 1;	// 0x04
+			unsigned int sensedB : 1;	// 0x08
+			unsigned int latchA : 1;	// 0x10
+			unsigned int latchB : 1;	// 0x20
+			unsigned int channels : 1;	// 0x40
+			unsigned int supply : 1;	// 0x80
 		} bits;
 		uint8_t byte;
 	} ChannelInfo;
@@ -105,8 +105,8 @@ public:
 		LATCH = 1, FLIPFLOP, PIO 
 	};
 
-	DS2406( OWBus &abus, OWBus::Address &aa, const char *aname=NULL ) : OWDevice( abus, aa, aname ) {}
-	DS2406( OWBus &abus, uint64_t aa, const char *aname=NULL ) : OWDevice( abus, aa, aname ) {}
+	DS2406( OWBus &abus, OWBus::Address &aa, const char *aname=NULL ) : OWDevice( abus, aa, aname ) { this->clear(); }
+	DS2406( OWBus &abus, uint64_t aa, const char *aname=NULL ) : OWDevice( abus, aa, aname ) { this->clear(); }
 
 #ifdef IMPLEMENT_BITFIELD_TEST
 		/* Check the order of bits fields 
@@ -136,19 +136,25 @@ protected:
 
 	bool doChannelAccess( bool reset=true );	// reset = true if we don't need the bus afterward
 
+public:
+	bool hasPIOB();
+	bool latcheA();
+	bool latcheB();
+
 	/* Access functions.
 	 * Try to be as compatible as possible with other PIO capables chipts
 	 */
-public:
 	enum PIObitsvalue { PIOAbit=1, PIOBbit=2 };
 
-	bool getPIOA( uint8_t val = (uint8_t)-1 );
-	bool getPIOB( uint8_t val = (uint8_t)-1 );
-	bool arePIOsValid( uint8_t val = (uint8_t)-1 );
+	bool getPIOA( bool reload=false );
+	bool getPIOB( bool reload=false );
+	bool arePIOsValid( ) { return isChannelInfoValide; }
 
-	uint8_t readPIOs();	// Read PIOs
+	uint8_t readPIOs( bool reset=true );	// Read PIOs
 	bool writePIOs( uint8_t );	// Write PIOs
 	bool setPIOA( bool val, bool portB = false );	// if true, PortB select B
 	bool setPIOB( bool val ) { this->setPIOA( val, true ); }
+
+	virtual bool isParasitePowered();
 };
 #endif

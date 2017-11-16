@@ -255,6 +255,7 @@ bool DS2413::arePIOsValid( uint8_t val ){
 
 /* As per https://www.maximintegrated.com/en/app-notes/index.mvp/id/5856 */
 bool DS2406::doChannelAccess( bool reset ){
+	/* <- reset : do we have to reset the bus when finished */
 	OneWire *ow = getBus().getOWTechLayer();
 	if(!ow->reset())
 		return false;
@@ -269,6 +270,45 @@ bool DS2406::doChannelAccess( bool reset ){
 	if(reset) ow->reset();
 
 	return true;
+}
+
+uint8_t DS2406::readPIOs( bool reset ){	// Update ChannelInfo
+	/* <- reset : do we have to reset the bus when finished */
+	this->ChannelControl.clear();
+	this->ChannelControl.bits.im = true;
+
+	if(!this->doChannelAccess( reset ))
+		return 0;
+
+	return ( ((this->ChannelInfo.byte) >> 2) & 0x03 );
+}
+
+bool DS2406::hasPIOB(){
+	if(!this->arePIOsValid())
+		this->readPIOs( true );
+
+	return( this->ChannelInfo.bits.channels );
+}
+
+bool DS2406::isParasitePowered(){
+	if(!this->arePIOsValid())
+		this->readPIOs( true );
+
+	return( !this->ChannelInfo.bits.supply);
+}
+
+bool DS2406::getPIOA( bool reload ){
+	if(reload || !this->arePIOsValid() )
+		this->readPIOs( true );
+
+	return( this->ChannelInfo.bits.sensedA );
+}
+
+bool DS2406::getPIOB( bool reload ){
+	if(reload || !this->arePIOsValid() )
+		this->readPIOs( true );
+
+	return( this->ChannelInfo.bits.sensedB );
 }
 
 bool DS2406::setPIOA( bool val, bool portB ){
