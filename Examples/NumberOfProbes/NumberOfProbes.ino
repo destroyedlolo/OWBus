@@ -6,6 +6,7 @@
 
 #include <OWBus.h>
 #include <OWBus/OWDevice.h>
+#include <OWBus/DS2406.h>
 
 #if 0	/* Test bits ordering */
 #define IMPLEMENT_BITFIELD_TEST
@@ -37,15 +38,22 @@ void loop() {
 		if(!addr.isValid( &oneWire))
 			Serial.println("Invalid address");
 		else {
-			OWDevice probe( bus, addr );
-			Serial.println( probe.getFamilly() );
-
+			switch( addr.getFamillyCode() ){
+			case DS2406::FAMILLY_CODE: {
+					DS2406 probe( bus, addr );
+					Serial.println( probe.getFamilly() );
 #			ifdef IMPLEMENT_BITFIELD_TEST
-			if( addr.getFamillyCode() == DS2406::FAMILLY_CODE ){
-				DS2406 tst( bus, addr );
-				Serial.println(tst.checkArchitecture() ? "Arch ok":"Bad bits ordering");
-			}
+					Serial.println( probe.checkArchitecture() ? "\tArch ok":"Bad bits ordering");
 #			endif
+					Serial.println( probe.hasPIOB() ? "\tBoth PIO.A & PIO.B" : "\tonly PIO.A" );
+					Serial.println( probe.isParasitePowered() ? "\tParasite" : "\tExternal" );
+				}
+				break;
+			default: {
+					OWDevice probe( bus, addr );
+					Serial.println( probe.getFamilly() );
+				}
+			}
 		}
 	}
 
