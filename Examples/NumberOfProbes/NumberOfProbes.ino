@@ -52,6 +52,7 @@ void loop() {
 			default: {
 					OWDevice probe( bus, addr );
 					Serial.println( probe.getFamilly() );
+					Serial.println( probe.isParasitePowered() ? "\tParasite" : "\tExternal" );
 				}
 			}
 		}
