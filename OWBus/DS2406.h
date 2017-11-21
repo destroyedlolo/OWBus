@@ -149,7 +149,7 @@ public:
 	bool getLatcheB( bool reload=false );
 
 	/* Access functions.
-	 * Try to be as compatible as possible with other PIO capables chipts
+	 * Try to be as compatible as possible with other PIO capables chips
 	 */
 
 		/* sense PIOs */

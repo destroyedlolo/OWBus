@@ -301,6 +301,20 @@ bool DS2406::isParasitePowered( bool reload ){
 	return( !this->ChannelInfo.bits.supply);
 }
 
+bool DS2406::getFlipFlopA( bool reload ){
+	if(reload || !this->arePIOsValid() )
+		this->readPIOs( true );
+
+	return( this->ChannelInfo.bits.flipflopA );
+}
+
+bool DS2406::getFlipFlopB( bool reload ){
+	if(reload || !this->arePIOsValid() )
+		this->readPIOs( true );
+
+	return( this->ChannelInfo.bits.flipflopB );
+}
+
 bool DS2406::getLatcheA( bool reload ){
 	if(reload || !this->arePIOsValid() )
 		this->readPIOs( true );
