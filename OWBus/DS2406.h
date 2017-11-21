@@ -3,7 +3,7 @@
  * 09/11/2017 - L.Faillie - First version
  */
 #ifndef OWDS2406_H
-#define OWDS2406_H	0.0301
+#define OWDS2406_H	0.0302
 
 #include <OWBus.h>
 #include <OWBus/OWDevice.h>
@@ -137,8 +137,12 @@ protected:
 	bool doChannelAccess( bool reset=true );	// reset = true if we don't need the bus afterward
 
 public:
-	bool hasPIOB( void );
-	virtual bool isParasitePowered( void );
+	bool hasPIOB( bool reload=false );
+	virtual bool isParasitePowered( bool reload=false );
+
+		/* get latches */
+	bool getFlipFlopA( bool reload=false );
+	bool getFlipFlopB( bool reload=false );
 
 		/* get latches */
 	bool getLatcheA( bool reload=false );
@@ -147,7 +151,6 @@ public:
 	/* Access functions.
 	 * Try to be as compatible as possible with other PIO capables chipts
 	 */
-	enum PIObitsvalue { PIOAbit=1, PIOBbit=2 };
 
 		/* sense PIOs */
 	bool getPIOA( bool reload=false );
@@ -159,6 +162,7 @@ public:
 	bool setPIOB( bool val ) { this->setPIOA( val, true ); }
 
 		/* Compatibilities */
+	enum PIObitsvalue { PIOAbit=1, PIOBbit=2 };
 	uint8_t readPIOs( bool reset=true );	// Read PIOs
 	bool writePIOs( uint8_t );	// Write PIOs
 };

@@ -287,15 +287,15 @@ uint8_t DS2406::readPIOs( bool reset ){	// Update ChannelInfo
 bool writePIOs( uint8_t );
  */
 
-bool DS2406::hasPIOB( void ){
-	if(!this->arePIOsValid())
+bool DS2406::hasPIOB( bool reload ){
+	if(reload || !this->arePIOsValid() )
 		this->readPIOs( true );
 
 	return( this->ChannelInfo.bits.channels );
 }
 
-bool DS2406::isParasitePowered( void ){
-	if(!this->arePIOsValid())
+bool DS2406::isParasitePowered( bool reload ){
+	if(reload || !this->arePIOsValid() )
 		this->readPIOs( true );
 
 	return( !this->ChannelInfo.bits.supply);
@@ -330,7 +330,7 @@ bool DS2406::getPIOB( bool reload ){
 }
 
 bool DS2406::setPIOA( bool val, bool portB ){
-	this->ChannelControl.clear();
+	this->clear();	// ChannelInfo and StatusMemory will change as well
 	if(!portB)
 		this->ChannelControl.bits.chs_A = true;
 	else
