@@ -283,18 +283,36 @@ uint8_t DS2406::readPIOs( bool reset ){	// Update ChannelInfo
 	return ( ((this->ChannelInfo.byte) >> 2) & 0x03 );
 }
 
-bool DS2406::hasPIOB(){
+/* To be done
+bool writePIOs( uint8_t );
+ */
+
+bool DS2406::hasPIOB( void ){
 	if(!this->arePIOsValid())
 		this->readPIOs( true );
 
 	return( this->ChannelInfo.bits.channels );
 }
 
-bool DS2406::isParasitePowered(){
+bool DS2406::isParasitePowered( void ){
 	if(!this->arePIOsValid())
 		this->readPIOs( true );
 
 	return( !this->ChannelInfo.bits.supply);
+}
+
+bool DS2406::getLatcheA( bool reload ){
+	if(reload || !this->arePIOsValid() )
+		this->readPIOs( true );
+
+	return( this->ChannelInfo.bits.latchA );
+}
+
+bool DS2406::getLatcheB( bool reload ){
+	if(reload || !this->arePIOsValid() )
+		this->readPIOs( true );
+
+	return( this->ChannelInfo.bits.latchB );
 }
 
 bool DS2406::getPIOA( bool reload ){
