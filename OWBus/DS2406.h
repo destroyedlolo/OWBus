@@ -140,7 +140,7 @@ public:
 	bool hasPIOB( bool reload=false );
 	virtual bool isParasitePowered( bool reload=false );
 
-		/* get latches */
+		/* get FlipFlop (transistors' control) */
 	bool getFlipFlopA( bool reload=false );
 	bool getFlipFlopB( bool reload=false );
 
