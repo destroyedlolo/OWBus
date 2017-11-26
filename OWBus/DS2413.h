@@ -8,7 +8,7 @@
  * 	- this probe is currently UNTESTED
  */
 #ifndef OWDS2413_H
-#define OWDS2413_H 0.0100
+#define OWDS2413_H 0.0200
 
 #include <OWBus.h>
 #include <OWBus/OWDevice.h>
@@ -28,11 +28,26 @@ public:
 	enum PIObitsvalue { PIOAbit=1, PIOBbit=2 };
 	enum PIOmask { PIONONEmask=0xff, PIOAmask=0xfe, PIOBmask=0xfd };
 
-		// If no argument is provided, takes the last readPIOs() value
+		/******
+		 * Sense PIOs
+		 ******
+		 * If no argument is provided, takes the last readPIOs() value
+		 */
 	bool getPIOA( uint8_t val = (uint8_t)-1 );
 	bool getPIOB( uint8_t val = (uint8_t)-1 );
-	bool arePIOsValid( uint8_t val = (uint8_t)-1 );
 
+		/******
+		 * Get PIOs output status
+		 ******
+		 * If no argument is provided, takes the last readPIOs() value
+		 */		
+	bool getFlipFlopA( uint8_t val = (uint8_t)-1 );	// To be consistent with DS2406
+	bool getFlipFlopB( uint8_t val = (uint8_t)-1 );
+
+	bool getLatcheA( uint8_t val = (uint8_t)-1 ){ this->getFlipFlopA(val); }	// To be consistent with the datasheet
+	bool getLatcheB( uint8_t val = (uint8_t)-1 ){ this->getFlipFlopB(val); };
+
+	bool arePIOsValid( uint8_t val = (uint8_t)-1 );
 	uint8_t readPIOs();	// Read PIOs
 	bool writePIOs( uint8_t );	// Write PIOs
 };

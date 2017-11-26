@@ -241,6 +241,18 @@ bool DS2413::getPIOB( uint8_t val ){
 	return(val & 4);
 }
 
+bool DS2413::getFlipFlopA( uint8_t val ){
+	if(val == (uint8_t)-1)
+		val = this->lastPIOs;
+	return(val & 2);
+}
+
+bool DS2413::getFlipFlopB( uint8_t val ){
+	if(val == (uint8_t)-1)
+		val = this->lastPIOs;
+	return(val & 8);
+}
+
 bool DS2413::arePIOsValid( uint8_t val ){
 	if(val == (uint8_t)-1)
 		val = this->lastPIOs;
