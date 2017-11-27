@@ -6,12 +6,11 @@
 
 #include <OWBus.h>
 #include <OWBus/OWDevice.h>
-#include <OWBus/DS2406.h>
 
 #if 0	/* Test bits ordering */
 #define IMPLEMENT_BITFIELD_TEST
-#include <OWBus/DS2406.h>
 #endif
+#include <OWBus/DS2406.h>
 
 #define ONE_WIRE_BUS 5			// Where 1-wire bus is connected to (GPIO-5)
 OneWire oneWire(ONE_WIRE_BUS);	// Initialize oneWire library
@@ -38,10 +37,10 @@ void loop() {
 		if(!addr.isValid( &oneWire))
 			Serial.println("Invalid address");
 		else {
-			switch( addr.getFamillyCode() ){
-			case DS2406::FAMILLY_CODE: {
+			switch( addr.getFamilyCode() ){
+			case DS2406::FAMILY_CODE: {
 					DS2406 probe( bus, addr );
-					Serial.println( probe.getFamilly() );
+					Serial.println( probe.getFamily() );
 #			ifdef IMPLEMENT_BITFIELD_TEST
 					Serial.println( probe.checkArchitecture() ? "\tArch ok":"Bad bits ordering");
 #			endif
@@ -51,7 +50,7 @@ void loop() {
 				break;
 			default: {
 					OWDevice probe( bus, addr );
-					Serial.println( probe.getFamilly() );
+					Serial.println( probe.getFamily() );
 					Serial.println( probe.isParasitePowered() ? "\tParasite" : "\tExternal" );
 				}
 			}

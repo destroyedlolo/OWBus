@@ -16,7 +16,7 @@ public:
 	DS18B20( OWBus &abus, uint64_t aa, const char *aname=NULL ) : OWDevice( abus, aa, aname ), OWScratchpad( this, 9 ) {}
 
 	const float BAD_TEMPERATURE = 9999.0;
-	static const uint8_t FAMILLY_CODE = 0x28;
+	static const uint8_t FAMILY_CODE = 0x28;
 	virtual uint64_t getOWCapability(){ return(OWDevice::OWCapabilities::TEMPERATURE | OWDevice::OWCapabilities::EEPROM | OWDevice::OWCapabilities::TEMPERATURE_ALARM ); }
 
 	unsigned long getConversionDelay();	// Delay needed for the conversion

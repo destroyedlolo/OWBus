@@ -52,8 +52,8 @@ public:
 		String toString();
 
 		bool isValid(OneWire *ow){ return(ow->crc8(addr, 7) == addr[7]); }	// Is a valid address ?
-		const char *getFamilly();
-		uint8_t getFamillyCode(){ return addr[0]; };
+		const char *getFamily();
+		uint8_t getFamilyCode(){ return addr[0]; };
 	};
 
 		/* Accessors */

@@ -44,7 +44,7 @@ public:
 
 	OWBus &getBus(){ return bus; }
 	OWBus::Address &getAddress(){ return addr; }
-	const char *getFamilly(){ return addr.getFamilly(); }
+	const char *getFamily(){ return addr.getFamily(); }
 	virtual bool isParasitePowered();
 	String getName();
 };

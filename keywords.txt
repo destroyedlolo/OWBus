@@ -7,8 +7,8 @@ Address	KEYWORD1
 
 toString	KEYWORD2
 isValid		KEYWORD2
-getFamilly	KEYWORD2
-getFamillyCode	KEYWORD2
+getFamily	KEYWORD2
+getFamilyCode	KEYWORD2
 getOWTechLayer	KEYWORD2
 search_reset	KEYWORD2
 search_next	KEYWORD2
@@ -65,7 +65,7 @@ forceInvalidScratchpad	KEYWORD2
 DS18B20	KEYWORD1
 
 BAD_TEMPERATURE	LITERAL1
-FAMILLY_CODE	LITERAL1
+FAMILY_CODE	LITERAL1
 
 getConversionDelay	KEYWORD2
 getResolution	KEYWORD2

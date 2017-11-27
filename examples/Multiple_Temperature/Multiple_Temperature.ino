@@ -44,10 +44,10 @@ void loop() {
 	bus.launchTemperatureAcquisition(parasite);
 	delay(duration);	// Waiting for conversions to be done
 
-	Serial.print( (probe1.getAddress().toString() + " (" + probe1.getFamilly() + ") : ").c_str() );
+	Serial.print( (probe1.getAddress().toString() + " (" + probe1.getFamily() + ") : ").c_str() );
 	Serial.println( probe1.readLastTemperature() );
 	
-	Serial.print( (probe2.getAddress().toString() + " (" + probe2.getFamilly() + ") : ").c_str() );
+	Serial.print( (probe2.getAddress().toString() + " (" + probe2.getFamily() + ") : ").c_str() );
 	Serial.println( probe2.readLastTemperature() );
 
 	delay(30e3);	// Sleep for 30 seconds

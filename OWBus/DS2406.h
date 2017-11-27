@@ -119,7 +119,7 @@ public:
 	}
 #endif
 
-	static const uint8_t FAMILLY_CODE = 0x12;
+	static const uint8_t FAMILY_CODE = 0x12;
 
 	virtual uint64_t getOWCapability(){ return(OWDevice::OWCapabilities::EEPROM | OWDevice::OWCapabilities::PIO | OWDevice::OWCapabilities::PIO_ALARM ); }
 

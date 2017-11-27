@@ -385,15 +385,15 @@ bool OWBus::launchTemperatureAcquisition(bool parasite){
 	return true;
 }
 
-const char *OWBus::Address::getFamilly(){
+const char *OWBus::Address::getFamily(){
 	switch(addr[0]){
-	case DS18B20::FAMILLY_CODE :
+	case DS18B20::FAMILY_CODE :
 		return "DS18B20";
-	case DS28EA00::FAMILLY_CODE:
+	case DS28EA00::FAMILY_CODE:
 		return "DS28EA00";
-	case DS2406::FAMILLY_CODE:
+	case DS2406::FAMILY_CODE:
 		return "DS2406";	/* and DS2407 */
-	case DS2413::FAMILLY_CODE:
+	case DS2413::FAMILY_CODE:
 		return "DS2413";
 	default :
 		return "Unknown";

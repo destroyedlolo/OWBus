@@ -21,7 +21,7 @@ public:
 	DS2413( OWBus &abus, OWBus::Address &aa, const char *aname=NULL ) : OWDevice( abus, aa, aname ) {}
 	DS2413( OWBus &abus, uint64_t aa, const char *aname=NULL ) : OWDevice( abus, aa, aname ) {}
 
-	static const uint8_t FAMILLY_CODE = 0x3A;
+	static const uint8_t FAMILY_CODE = 0x3A;
 	virtual uint64_t getOWCapability(){ return(OWDevice::OWCapabilities::PIO); }
 
 		/* Both PIOs are read or written at the same time */

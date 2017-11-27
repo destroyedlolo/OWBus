@@ -21,7 +21,7 @@ Abstracts 1-wire bus and handles
 Abstracts 1-wire address handling
 - validation
 - **to string** conversion
-- chip familly identification
+- chip family identification
 - ...
 
 ## OWDevice (OWBus/OWDevice.h)
