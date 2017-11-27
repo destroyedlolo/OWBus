@@ -11,7 +11,7 @@
 #include <OWBus.h>
 #include <OWBus/DS28EA00.h>
 
-#define ONE_WIRE_BUS D1			// Where 1W bus is connected to (NodeMCU)
+#define ONE_WIRE_BUS 5			// Where 1W bus is connected to (D1 on NodeMCU)
 OneWire oneWire(ONE_WIRE_BUS);	// Initialize oneWire library
 OWBus bus(&oneWire);
 
