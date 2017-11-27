@@ -13,7 +13,7 @@
 #include <OWBus.h>
 #include <OWBus/OWDevice.h>
 
-class DS2413 : public OWDevice {
+class DS2413 : virtual public OWDevice {
 protected:
 	uint8_t lastPIOs;
 

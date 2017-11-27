@@ -10,7 +10,10 @@
 #include <OWBus/OWDevice.h>
 #include <OWBus/OWScratchpad.h>
 
-class DS18B20 : public OWDevice, public OWScratchpad{
+class DS18B20 : virtual public OWDevice, public OWScratchpad{
+	/* Note : OWScratchpad can't be virtually inherited as its size is
+	 * set by the "mother" device, and methods depend on it
+	 */
 public:
 	DS18B20( OWBus &abus, OWBus::Address &aa, const char *aname=NULL ) : OWDevice( abus, aa, aname ), OWScratchpad( this, 9 ) {}
 	DS18B20( OWBus &abus, uint64_t aa, const char *aname=NULL ) : OWDevice( abus, aa, aname ), OWScratchpad( this, 9 ) {}

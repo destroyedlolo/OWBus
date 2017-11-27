@@ -8,7 +8,7 @@
 #include <OWBus.h>
 #include <OWBus/OWDevice.h>
 
-class DS2406 : public OWDevice {
+class DS2406 : virtual public OWDevice {
 private:
 
 	/* Channel control byte 1 : (2 is always 0xff)

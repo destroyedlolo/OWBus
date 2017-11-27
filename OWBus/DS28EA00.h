@@ -11,10 +11,10 @@
 #include <OWBus/DS2413.h>
 
 	/* Fortunately, DS28EA00 is a DS18B20 in temperature acquisition point of view */
-class DS28EA00 : public DS18B20, public DS2413 {
+class DS28EA00 : virtual public DS18B20, virtual public DS2413 {
 public:
-	DS28EA00( OWBus &abus, OWBus::Address &aa, const char *aname=NULL ) : DS18B20( abus, aa, aname ), DS2413(abus, aa) {}
-	DS28EA00( OWBus &abus, uint64_t aa, const char *aname=NULL ) : DS18B20( abus, aa, aname ), DS2413(abus, aa) {}
+	DS28EA00( OWBus &abus, OWBus::Address &aa, const char *aname=NULL ) : DS18B20( abus, aa, aname ), DS2413(abus, aa, aname), OWDevice(abus, aa) {}
+	DS28EA00( OWBus &abus, uint64_t aa, const char *aname=NULL ) : DS18B20( abus, aa, aname ), DS2413(abus, aa), OWDevice(abus, aa) {}
 
 	virtual uint8_t getOWCommand( OWDevice::OWCommands c ){
 		if( c==OWDevice::OWCommands::PIO_WRITE )
