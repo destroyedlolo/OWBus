@@ -20,8 +20,12 @@ void setup() {
 	Serial.begin(115200);
 	delay(100);
 
+#ifdef ESP8266
+		// sometime, ESP comes with larger flash than expected
+		// i.e. got 1Mo ESP-201 instead of 512k
 	Serial.print("Flash's size : ");
 	Serial.println(ESP.getFlashChipRealSize());
+#endif
 }
 
 void loop() {
