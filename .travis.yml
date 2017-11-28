@@ -1,0 +1,66 @@
+# This file is used to configure the Travis CI tests of this library
+
+# Although sudo is not required by arduino-ci-script, for some reason setting "sudo: false" causes the Travis CI build time to significantly increase so this setting is left as "sudo: required"
+sudo: required
+
+
+env:
+  global:
+    # The Arduino IDE will be installed at APPLICATION_FOLDER/arduino
+    - APPLICATION_FOLDER="${HOME}/arduino-ide"
+    - SKETCHBOOK_FOLDER="${HOME}/arduino-sketchbook"
+
+
+before_install:
+  - git clone https://github.com/per1234/arduino-ci-script.git "${HOME}/scripts"
+  - cd "${HOME}/scripts"
+  # Get new tags from the remote
+  - git fetch --tags
+  # Get the latest tag name
+  - latestTag=$(git describe --tags `git rev-list --tags --max-count=1`)
+  # Checkout the latest tag
+  - git checkout $latestTag
+  - source "${HOME}/scripts/arduino-ci-script.sh"
+
+  # Uncomment the following lines to get verbose output for debugging (but also clutters up the log so leave commented otherwise)
+  # 0 (minimum/default) - 2 (maximum) verbosity
+  #- set_script_verbosity 2
+  # Turn on verbose output during compilation
+  #- set_verbose_output_during_compilation "true"
+
+  # Check for library issues that don't affect compilation
+  - set_library_testing "true"
+
+  - set_application_folder "$APPLICATION_FOLDER"
+  - set_sketchbook_folder "$SKETCHBOOK_FOLDER"
+
+  - install_ide '("1.6.5-r5" "1.6.9" "newest" "hourly")'
+  
+  # Install the ESP8266 core for Arduino
+  - install_package "esp8266:esp8266" "http://arduino.esp8266.com/stable/package_esp8266com_index.json"
+
+  # Install the library from the repository
+  - install_library
+  # Install the library dependencies
+  - install_library OneWire
+
+
+script:
+  # Compile all example sketches included with the library
+  # build_sketch arguments: sketch name, fqbn, allow failure, IDE version/list/range
+  - build_sketch "${SKETCHBOOK_FOLDER}/libraries/OWBus/examples" "arduino:avr:uno" "false" "oldest" "newest"
+  - build_sketch "${SKETCHBOOK_FOLDER}/libraries/OWBus/examples" "esp8266:esp8266:d1_mini:CpuFrequency=80,UploadSpeed=921600,FlashSize=4M3M" "false" "oldest" "newest"
+  # Test with the hourly build of the Arduino IDE to get a warning of any incompatibilities created by recent IDE changes but allow failure because failure may be caused by bugs or changes to the IDE that will be reverted.
+  - build_sketch "${SKETCHBOOK_FOLDER}/libraries/OWBus/examples" "arduino:avr:uno" "true" "hourly"
+  - build_sketch "${SKETCHBOOK_FOLDER}/libraries/OWBus/examples" "esp8266:esp8266:d1_mini:CpuFrequency=80,UploadSpeed=921600,FlashSize=4M3M" "true" "hourly"
+
+
+after_script:
+  # Print a tab separated report of all sketch verification results to the log
+  - display_report
+
+
+notifications:
+  email:
+    on_success: always
+    on_failure: always
