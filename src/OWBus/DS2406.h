@@ -159,7 +159,7 @@ public:
 
 		/* set PIOs */
 	bool setPIOA( bool val, bool portB = false );	// if true, PortB select B
-	bool setPIOB( bool val ) { this->setPIOA( val, true ); }
+	bool setPIOB( bool val ) { return this->setPIOA( val, true ); }
 
 		/* Compatibilities */
 	enum PIObitsvalue { PIOAbit=1, PIOBbit=2 };

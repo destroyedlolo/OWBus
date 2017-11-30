@@ -44,8 +44,8 @@ public:
 	bool getFlipFlopA( uint8_t val = (uint8_t)-1 );	// To be consistent with DS2406
 	bool getFlipFlopB( uint8_t val = (uint8_t)-1 );
 
-	bool getLatcheA( uint8_t val = (uint8_t)-1 ){ this->getFlipFlopA(val); }	// To be consistent with the datasheet
-	bool getLatcheB( uint8_t val = (uint8_t)-1 ){ this->getFlipFlopB(val); };
+	bool getLatcheA( uint8_t val = (uint8_t)-1 ){ return this->getFlipFlopA(val); }	// To be consistent with the datasheet
+	bool getLatcheB( uint8_t val = (uint8_t)-1 ){ return this->getFlipFlopB(val); };
 
 	bool arePIOsValid( uint8_t val = (uint8_t)-1 );
 	uint8_t readPIOs();	// Read PIOs
