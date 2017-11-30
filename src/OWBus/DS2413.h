@@ -8,7 +8,7 @@
  * 	- this probe is currently UNTESTED
  */
 #ifndef OWDS2413_H
-#define OWDS2413_H 0.0200
+#define OWDS2413_H 0.0201
 
 #include <OWBus.h>
 #include <OWBus/OWDevice.h>

@@ -3,7 +3,7 @@
  * 09/11/2017 - L.Faillie - First version
  */
 #ifndef OWDS2406_H
-#define OWDS2406_H	0.0302
+#define OWDS2406_H	0.0303
 
 #include <OWBus.h>
 #include <OWBus/OWDevice.h>
