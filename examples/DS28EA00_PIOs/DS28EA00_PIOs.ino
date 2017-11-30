@@ -34,7 +34,7 @@ void loop() {
 	if( !val || !probe.arePIOsValid())
 		Serial.println("readPIOs() failure");
 	else {
-		Serial.print( probe.PIOB() ? "PIO.B is high > " : "PIO.B is low > ");
+		Serial.print( probe.getPIOB() ? "PIO.B is high > " : "PIO.B is low > ");
 		Serial.print( val, BIN);
 		Serial.print( " : 0x");
 		Serial.println( val, HEX);
@@ -50,7 +50,7 @@ void loop() {
 	if( !val || !probe.arePIOsValid())
 		Serial.println("readPIOs() failure");
 	else {
-		Serial.print( probe.PIOB() ? "PIO.B is high > " : "PIO.B is low > ");
+		Serial.print( probe.getPIOB() ? "PIO.B is high > " : "PIO.B is low > ");
 		Serial.print( val, BIN);
 		Serial.print( " : 0x");
 		Serial.println( val, HEX);
