@@ -55,9 +55,9 @@ script:
   - build_sketch "${SKETCHBOOK_FOLDER}/libraries/OWBus/examples" "esp8266:esp8266:d1_mini:CpuFrequency=80,UploadSpeed=921600,FlashSize=4M3M" "true" "hourly"
 
 
-after_script:
+#after_script:
   # Print a tab separated report of all sketch verification results to the log
-  - display_report
+#  - display_report
 
 
 notifications:
