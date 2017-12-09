@@ -8,7 +8,7 @@
  * 	- this probe is currently UNTESTED
  */
 #ifndef OWDS2413_H
-#define OWDS2413_H 0.0201
+#define OWDS2413_H 0.0300
 
 #include <OWBus.h>
 #include <OWBus/OWDevice.h>
@@ -47,8 +47,17 @@ public:
 	bool getLatcheA( uint8_t val = (uint8_t)-1 ){ return this->getFlipFlopA(val); }	// To be consistent with the datasheet
 	bool getLatcheB( uint8_t val = (uint8_t)-1 ){ return this->getFlipFlopB(val); };
 
+		/******
+		 * set PIOs
+		 ******
+		 * Notez-bien : current latches values are read if invalid.
+		 * If you're not sure of current cached value, use readPIOs()
+		 */
+	void setPIOA( bool val );
+	void setPIOB( bool val );
+
 	bool arePIOsValid( uint8_t val = (uint8_t)-1 );
-	uint8_t readPIOs();	// Read PIOs
+	uint8_t readPIOs( void );	// Read PIOs
 	bool writePIOs( uint8_t );	// Write PIOs
 };
 

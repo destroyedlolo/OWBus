@@ -62,6 +62,30 @@ bool DS2413::getFlipFlopB( uint8_t val ){
 	return(val & 8);
 }
 
+void DS2413::setPIOA( bool val ){
+	if(!this->arePIOsValid())	// Refresh cache if not valide
+		this->readPIOs();
+
+	this->writePIOs( 
+		(val ? DS2413::PIObitsvalue::PIOAbit : 0) |
+		( this->getFlipFlopB() ? DS2413::PIObitsvalue::PIOBbit : 0 )
+	);
+
+	this->lastPIOs = 0;	// Make cache invalide
+}
+
+void DS2413::setPIOB( bool val ){
+	if(!this->arePIOsValid())	// Refresh cache if not valide
+		this->readPIOs();
+
+	this->writePIOs( 
+		(val ? DS2413::PIObitsvalue::PIOBbit : 0) |
+		( this->getFlipFlopA() ? DS2413::PIObitsvalue::PIOAbit : 0 )
+	);
+
+	this->lastPIOs = 0;	// Make cache invalide
+}
+
 bool DS2413::arePIOsValid( uint8_t val ){
 	if(val == (uint8_t)-1)
 		val = this->lastPIOs;
