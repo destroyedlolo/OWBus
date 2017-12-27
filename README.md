@@ -65,8 +65,8 @@ Handles ds28ea00 temperature probe as well as its PIOs.
 Handles ds2413 dual simple PIOs
 
 ### Features Support
-- PIO writing : **implemented but untested**
-- PIO reading : **implemented but untested**
+- PIO writing : **Tested ok**
+- PIO reading : **Tested ok**
 
 ## DS2406
 Handle ds2406 and 07 (which is dectected as DS2406)

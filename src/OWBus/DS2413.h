@@ -1,6 +1,7 @@
 /* Implement DS2413 double PIO
  *
  * 06/11/2017 - L.Faillie - First version
+ * 27/12/2017 - L.Faillie - No change but the code is now TESTED and validated
  *
  * Notez-bien :
  * 	- if RESUME (0xA5) needs a custom code here, it needs to be invalidated
