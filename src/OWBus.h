@@ -21,8 +21,7 @@ class OWBus {
 	OneWire *ow;
 
 public:
-	OWBus(OneWire *aow): ow(aow){
-	}
+	OWBus(OneWire *aow): ow(aow){ }
 
 		/* Addresses */
 	class Address {
@@ -52,6 +51,8 @@ public:
 		String toString();
 
 		bool isValid(OneWire *ow){ return(ow->crc8(addr, 7) == addr[7]); }	// Is a valid address ?
+		bool isValid( OWBus &bus ){ return isValid(bus.getOWTechLayer()); };
+
 		const char *getFamily();
 		uint8_t getFamilyCode(){ return addr[0]; };
 	};
