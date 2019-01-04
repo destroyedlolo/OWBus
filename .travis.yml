@@ -49,13 +49,13 @@ script:
   # Compile all example sketches included with the library
   # build_sketch arguments: sketch name, fqbn, allow failure, IDE version/list/range
   - build_sketch "${SKETCHBOOK_FOLDER}/libraries/OWBus/examples" "arduino:avr:uno" "false" "oldest" "newest"
-  - build_sketch "${SKETCHBOOK_FOLDER}/libraries/OWBus/examples" "esp8266:esp8266:d1_mini:CpuFrequency=80,UploadSpeed=921600,FlashSize=4M3M" "false" "oldest" "newest"
-  - build_sketch "${SKETCHBOOK_FOLDER}/libraries/OWBus/examples" "esp8266:esp8266:generic:CpuFrequency=80,FlashFreq=40,FlashMode=dio,UploadSpeed=115200,FlashSize=512K64,ResetMethod=ck,Debug=Disabled,DebugLevel=None____" "false" "oldest" "newest"
+  - build_sketch "${SKETCHBOOK_FOLDER}/libraries/OWBus/examples" "esp8266:esp8266:d1_mini:xtal=80,baud=921600,eesz=4M3M" "false" "oldest" "newest"
+  - build_sketch "${SKETCHBOOK_FOLDER}/libraries/OWBus/examples" "esp8266:esp8266:generic:xtal=80,FlashFreq=40,FlashMode=dio,baud=115200,eesz=512K64,ResetMethod=ck,dbg=Disabled,lvl=None____" "false" "oldest" "newest"
 
   # Test with the hourly build of the Arduino IDE to get a warning of any incompatibilities created by recent IDE changes but allow failure because failure may be caused by bugs or changes to the IDE that will be reverted.
   - build_sketch "${SKETCHBOOK_FOLDER}/libraries/OWBus/examples" "arduino:avr:uno" "true" "hourly"
-  - build_sketch "${SKETCHBOOK_FOLDER}/libraries/OWBus/examples" "esp8266:esp8266:d1_mini:CpuFrequency=80,UploadSpeed=921600,FlashSize=4M3M" "true" "hourly"
-  - build_sketch "${SKETCHBOOK_FOLDER}/libraries/OWBus/examples" "esp8266:esp8266:generic:CpuFrequency=80,FlashFreq=40,FlashMode=dio,UploadSpeed=115200,FlashSize=512K64,ResetMethod=ck,Debug=Disabled,DebugLevel=None____" "true" "hourly"
+  - build_sketch "${SKETCHBOOK_FOLDER}/libraries/OWBus/examples" "esp8266:esp8266:d1_mini:xtal=80,baud=921600,eesz=4M3M" "true" "hourly"
+  - build_sketch "${SKETCHBOOK_FOLDER}/libraries/OWBus/examples" "esp8266:esp8266:generic:xtal=80,FlashFreq=40,FlashMode=dio,baud=115200,eesz=512K64,ResetMethod=ck,dbg=Disabled,lvl=None____" "true" "hourly"
 
 #after_script:
   # Print a tab separated report of all sketch verification results to the log
